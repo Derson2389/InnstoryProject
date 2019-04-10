@@ -3,17 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum InnsCardType
-{
-    CharacterCard,//角色卡
-    MissionCard,  //任务卡
-    ItemCard,     //道具卡
-    CounterCard,  //诡计卡
-    SkillCard,    //技能卡
 
-}
-
-public abstract class Card : MonoBehaviour {
+public abstract class Card {
 
     /// <summary>
     /// 卡牌大图
@@ -26,7 +17,7 @@ public abstract class Card : MonoBehaviour {
     /// <summary>
     /// 卡牌类型
     /// </summary>
-    public InnsCardType cardType;
+    public CardType cardType;
 
     /// <summary>
     /// 战斗阶段能否烧卡标记
@@ -38,5 +29,38 @@ public abstract class Card : MonoBehaviour {
     /// </summary>
     public int PlayerID;
 
+    /// <summary>
+    /// 卡牌ID
+    /// </summary>
+    public int ID;
+
+    /// <summary> 
+    ///当玩家拿起卡片时卡片所处的位置。
+    ///用于当玩家进行无效放置时，将牌放回其原始手牌位置
+    /// </summary>
+    protected Vector3 cardHandPos;
+    
+    protected bool isDraggable;
+
+    /// <summary>
+    /// 卡牌事件名称
+    /// </summary>
+    public string EffectEventName;
+    public string effectEventName
+    {
+        get { return EffectEventName; }
+        set { EffectEventName = value; }
+    }
+
+    protected GameObject targetObject = null;
+
+    //If the card is in the graveyard or not
+    public bool inGraveyard;
+    //If the card is in the summon zone
+    public bool inSummonZone;
+
+    public bool doneAddingToGraveyard = false;
+
+      
 
 }
