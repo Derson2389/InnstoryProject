@@ -13,7 +13,11 @@ public class ConfigManager
     private static void Deserialize(DynamicPacket dynamicPacket)
     {
         CharacterCardsCfgMgr.Instance.Deserialize(dynamicPacket);
+        CounterCardsCfgMgr.Instance.Deserialize(dynamicPacket);
+        ItemCardsCfgMgr.Instance.Deserialize(dynamicPacket);
+        MercenaryCardsCfgMgr.Instance.Deserialize(dynamicPacket);
         MissionCardsCfgMgr.Instance.Deserialize(dynamicPacket);
+        SkillCardsCfgMgr.Instance.Deserialize(dynamicPacket);
     }
     
     public static void LoadConfig(string cfgdatapath)

@@ -8,48 +8,46 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-public class MissionCardsCfg
+public class CounterCardsCfg
 {
     public int ID;    //		卡牌ID
-    public string name;    //		卡牌名字
-    public int itemCardNum;    //		装备卡数目
-    public int counterCardNum;    //		诡计卡数目
-    public int skillCardNum;    //		技能卡数目
-    public string cardConditon;    //		达成条件
-    public string cardEffect;    //		达成效果
+    public string name;    //		卡牌名称
+    public string activeEffect;    //		激活效果
+    public string signTxt;    //		符号
+    public int signID;    //		符号ID
+    public int ;    //		卡牌数量
 
     public void Deserialize (DynamicPacket packet)
     {
         ID = packet.PackReadInt32();
         name = packet.PackReadString();
-        itemCardNum = packet.PackReadInt32();
-        counterCardNum = packet.PackReadInt32();
-        skillCardNum = packet.PackReadInt32();
-        cardConditon = packet.PackReadString();
-        cardEffect = packet.PackReadString();
+        activeEffect = packet.PackReadString();
+        signTxt = packet.PackReadString();
+        signID = packet.PackReadInt32();
+         = packet.PackReadInt32();
     }
 }
 
-public class MissionCardsCfgMgr
+public class CounterCardsCfgMgr
 {
-    private static MissionCardsCfgMgr mInstance;
+    private static CounterCardsCfgMgr mInstance;
     
-    public static MissionCardsCfgMgr Instance
+    public static CounterCardsCfgMgr Instance
     {
         get
         {
             if (mInstance == null)
             {
-                mInstance = new MissionCardsCfgMgr();
+                mInstance = new CounterCardsCfgMgr();
             }
             
             return mInstance;
         }
     }
 
-    private Dictionary<int, MissionCardsCfg> mDict = new Dictionary<int, MissionCardsCfg>();
+    private Dictionary<int, CounterCardsCfg> mDict = new Dictionary<int, CounterCardsCfg>();
     
-    public Dictionary<int, MissionCardsCfg> Dict
+    public Dictionary<int, CounterCardsCfg> Dict
     {
         get {return mDict;}
     }
@@ -59,7 +57,7 @@ public class MissionCardsCfgMgr
         int num = (int)packet.PackReadInt32();
         for (int i = 0; i < num; i++)
         {
-            MissionCardsCfg item = new MissionCardsCfg();
+            CounterCardsCfg item = new CounterCardsCfg();
             item.Deserialize(packet);
             if (mDict.ContainsKey(item.ID))
             {
@@ -72,7 +70,7 @@ public class MissionCardsCfgMgr
         }
     }
     
-    public MissionCardsCfg GetDataByID(int id)
+    public CounterCardsCfg GetDataByID(int id)
     {
         if(mDict.ContainsKey(id))
         {

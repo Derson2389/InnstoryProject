@@ -8,48 +8,44 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-public class MissionCardsCfg
+public class MercenaryCardsCfg
 {
     public int ID;    //		卡牌ID
-    public string name;    //		卡牌名字
-    public int itemCardNum;    //		装备卡数目
-    public int counterCardNum;    //		诡计卡数目
-    public int skillCardNum;    //		技能卡数目
-    public string cardConditon;    //		达成条件
-    public string cardEffect;    //		达成效果
+    public string name;    //		名字
+    public string effectdesc;    //		效果说明
+    public string activeEffect;    //		激活效果
+    public string descriptipon;    //		说明
 
     public void Deserialize (DynamicPacket packet)
     {
         ID = packet.PackReadInt32();
         name = packet.PackReadString();
-        itemCardNum = packet.PackReadInt32();
-        counterCardNum = packet.PackReadInt32();
-        skillCardNum = packet.PackReadInt32();
-        cardConditon = packet.PackReadString();
-        cardEffect = packet.PackReadString();
+        effectdesc = packet.PackReadString();
+        activeEffect = packet.PackReadString();
+        descriptipon = packet.PackReadString();
     }
 }
 
-public class MissionCardsCfgMgr
+public class MercenaryCardsCfgMgr
 {
-    private static MissionCardsCfgMgr mInstance;
+    private static MercenaryCardsCfgMgr mInstance;
     
-    public static MissionCardsCfgMgr Instance
+    public static MercenaryCardsCfgMgr Instance
     {
         get
         {
             if (mInstance == null)
             {
-                mInstance = new MissionCardsCfgMgr();
+                mInstance = new MercenaryCardsCfgMgr();
             }
             
             return mInstance;
         }
     }
 
-    private Dictionary<int, MissionCardsCfg> mDict = new Dictionary<int, MissionCardsCfg>();
+    private Dictionary<int, MercenaryCardsCfg> mDict = new Dictionary<int, MercenaryCardsCfg>();
     
-    public Dictionary<int, MissionCardsCfg> Dict
+    public Dictionary<int, MercenaryCardsCfg> Dict
     {
         get {return mDict;}
     }
@@ -59,7 +55,7 @@ public class MissionCardsCfgMgr
         int num = (int)packet.PackReadInt32();
         for (int i = 0; i < num; i++)
         {
-            MissionCardsCfg item = new MissionCardsCfg();
+            MercenaryCardsCfg item = new MercenaryCardsCfg();
             item.Deserialize(packet);
             if (mDict.ContainsKey(item.ID))
             {
@@ -72,7 +68,7 @@ public class MissionCardsCfgMgr
         }
     }
     
-    public MissionCardsCfg GetDataByID(int id)
+    public MercenaryCardsCfg GetDataByID(int id)
     {
         if(mDict.ContainsKey(id))
         {
