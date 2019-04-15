@@ -42,7 +42,7 @@ public class Deck {
         }
     }    
 
-    public PlayableCard Draw()
+    public Card Draw()
     {
         if (_cards.Count < 1)
         {
@@ -50,7 +50,7 @@ public class Deck {
             return null;
         }
 
-        PlayableCard c = _cards[0];
+        Card c = _cards[0];
         _cards.RemoveAt(0);
         return c;
     }
