@@ -38,13 +38,13 @@ public class Deck {
     {
         for (int i = 0; i < count; i++)
         {
-            _cards.Add((PlayableCard)CardFactory.CreateCard(CardCodename));            
+            _cards.Add((Card)CardFactory.CreateCard(CardCodename));            
         }
     }    
 
     public PlayableCard Draw()
     {
-        if(_cards.Count < 1)
+        if (_cards.Count < 1)
         {
             Debug.Log("Tried to draw card from an empty deck");
             return null;
