@@ -13,12 +13,12 @@ public class Player {
     public Deck Deck { get; private set; } // this is the current deck used during the game itself 
     public int Credits { get; private set;  }
     public int Clicks { get; private set; }
-    public List<PlayableCard> Hand { get; private set; }
-    public List<PlayableCard> Discard { get; private set; }
-    public List<Shipyard> Shipyards { get; private set; }
-    public List<Ship> Ships { get; private set; }
-    public List<Missile> Missiles { get; private set; }
-    public List<Operation> OngoingOperations { get; private set; }
+    public List<Card> Hand { get; private set; }
+    public List<MissionCard> MissionCardList { get; private set; }
+    public List<ItemCard> ItemCardList { get; private set; }
+    public List<CounterCard> CounterCardList { get; private set; }
+    public List<MercenaryCard> MercenaryCardList { get; private set; }
+    ///public List<Operation> OngoingOperations { get; private set; }
 
     public Player(string name, int connectionId)
     {

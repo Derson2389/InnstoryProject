@@ -11,7 +11,7 @@ using UnityEngine;
 public class ItemCardsCfg
 {
     public int ID;    //		卡牌ID
-    public string ;    //		卡牌名称
+    public string name;    //		卡牌名称
     public string cardEffect;    //		效果
     public string activeEffect;    //		激活效果
     public int Durability;    //		耐久
@@ -20,7 +20,7 @@ public class ItemCardsCfg
     public void Deserialize (DynamicPacket packet)
     {
         ID = packet.PackReadInt32();
-         = packet.PackReadString();
+        name = packet.PackReadString();
         cardEffect = packet.PackReadString();
         activeEffect = packet.PackReadString();
         Durability = packet.PackReadInt32();

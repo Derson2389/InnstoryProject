@@ -15,7 +15,7 @@ public class CounterCardsCfg
     public string activeEffect;    //		激活效果
     public string signTxt;    //		符号
     public int signID;    //		符号ID
-    public int ;    //		卡牌数量
+    public int orginalNum;    //		卡牌数量
 
     public void Deserialize (DynamicPacket packet)
     {
@@ -24,7 +24,7 @@ public class CounterCardsCfg
         activeEffect = packet.PackReadString();
         signTxt = packet.PackReadString();
         signID = packet.PackReadInt32();
-         = packet.PackReadInt32();
+        orginalNum = packet.PackReadInt32();
     }
 }
 

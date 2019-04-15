@@ -6,12 +6,12 @@ using System.Text;
 [Serializable()]
 public class Deck {
 
-    public Faction Faction { get; private set; }
-    private List<PlayableCard> _cards;
+
+    private List<Card> _cards;
 
     public Deck()
     {
-        _cards = new List<PlayableCard>();
+        _cards = new List<Card>();
 
         // temp hard coded deck
         Homeworld homeworld = (Homeworld)CardFactory.CreateCard(CardCodename.DEFAULT_HOMEWORLD);
