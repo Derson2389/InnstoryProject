@@ -51,11 +51,11 @@ public class CharacterCardsCfgMgr
         }
     }
 
-    private Dictionary<int, CharacterCardsCfg> mDict = new Dictionary<int, CharacterCardsCfg>();
+    private List<CharacterCardsCfg> mList = new List<CharacterCardsCfg>();
     
-    public Dictionary<int, CharacterCardsCfg> Dict
+    public List<CharacterCardsCfg> List
     {
-        get {return mDict;}
+        get {return mList;}
     }
 
     public void Deserialize (DynamicPacket packet)
@@ -65,24 +65,7 @@ public class CharacterCardsCfgMgr
         {
             CharacterCardsCfg item = new CharacterCardsCfg();
             item.Deserialize(packet);
-            if (mDict.ContainsKey(item.ID))
-            {
-                mDict[item.ID] = item;
-            }
-            else
-            {
-                mDict.Add(item.ID, item);
-            }
+            mList.Add(item);
         }
-    }
-    
-    public CharacterCardsCfg GetDataByID(int id)
-    {
-        if(mDict.ContainsKey(id))
-        {
-            return mDict[id];
-        }
-        
-        return null;
     }
 }
