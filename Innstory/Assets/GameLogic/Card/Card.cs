@@ -28,6 +28,18 @@ public abstract class Card {
     /// </summary>
     public int PlayerID;
 
+
+
+    /// <summary>
+    /// 卡牌名称
+    /// </summary>
+    public string Name;
+
+    /// <summary> 
+    ///当玩家拿起卡片时卡片所处的位置。
+    ///用于当玩家进行无效放置时，将牌放回其原始手牌位置
+    /// </summary>
+
     /// <summary>
     /// 卡牌ID
     /// </summary>
