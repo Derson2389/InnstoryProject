@@ -6,25 +6,27 @@ using System.Text;
 [Serializable()]
 public class Deck {
 
-
+    public Faction Faction { get; private set; }
     private List<Card> _cards;
-
+    
     public Deck()
     {
         _cards = new List<Card>();
 
         // temp hard coded deck
-        Homeworld homeworld = (Homeworld)CardFactory.CreateCard(CardCodename.DEFAULT_HOMEWORLD);
-        List<Shipyard> shipyards = new List<Shipyard>();
-        shipyards.Add((Shipyard)CardFactory.CreateCard(CardCodename.SHIPYARD));
-        shipyards.Add((Shipyard)CardFactory.CreateCard(CardCodename.SMALL_SHIPYARD));
-        Faction = new Faction("DefaultFaction", 8, 100, 10, shipyards, homeworld);
-        AddCard(CardCodename.FRIGATE, 4);
-        AddCard(CardCodename.CRUISER, 4);
-        AddCard(CardCodename.BATTLESHIP, 4);
-        //AddCard(CardCodename.SHIPYARD, 4);
-        AddCard(CardCodename.SMALL_SHIPYARD, 4);
-        AddCard(CardCodename.SHORT_TERM_INVESTMENT, 4);
+        CharacterCard charCard = (CharacterCard)CardManager.instance.GetCardByType(CardType.CharacterCard, 1);
+
+
+        //List<Shipyard> shipyards = new List<Shipyard>();
+        //shipyards.Add((Shipyard)CardFactory.CreateCard(CardCodename.SHIPYARD));
+        //shipyards.Add((Shipyard)CardFactory.CreateCard(CardCodename.SMALL_SHIPYARD));
+        //Faction = new Faction("DefaultFaction", 8, 100, 10, shipyards, CharacterCard);
+        //AddCard(CardCodename.FRIGATE, 4);
+        //AddCard(CardCodename.CRUISER, 4);
+        //AddCard(CardCodename.BATTLESHIP, 4);
+        ////AddCard(CardCodename.SHIPYARD, 4);
+        //AddCard(CardCodename.SMALL_SHIPYARD, 4);
+        //AddCard(CardCodename.SHORT_TERM_INVESTMENT, 4);
         //AddCard(CardCodename.LONG_TERM_INVESTMENT, 4);
         //AddCard(CardCodename.EFFICIENCY_DRIVE, 4);
     }
@@ -34,11 +36,11 @@ public class Deck {
         return _cards.Count;
     }
     
-    public void AddCard(CardCodename CardCodename, int count = 1)
+    public void AddCard(Card _Card, int count = 1)
     {
         for (int i = 0; i < count; i++)
         {
-            _cards.Add((Card)CardFactory.CreateCard(CardCodename));            
+            _cards.Add(_Card);            
         }
     }    
 

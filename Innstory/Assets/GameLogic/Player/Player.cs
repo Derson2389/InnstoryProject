@@ -68,20 +68,20 @@ public class Player {
         // set starting clicks
         Clicks = Deck.Faction.ClicksPerTurn;
 
-        // create starting shipyards
-        Shipyards = new List<Shipyard>();
-        for (int i = 0; i < Deck.Faction.Shipyards.Count; i++)
+        // create starting MissionCard
+        MissionCardList = new List<MissionCard>();
+        for (int i = 0; i < Deck.Faction.MissionCards.Count; i++)
         {
-            Shipyard shipyard = Deck.Faction.Shipyards[i];
-            Shipyards.Add(shipyard);
+            MissionCard missionCard = Deck.Faction.MissionCards[i];
+            MissionCardList.Add(missionCard);
         }
 
         // initialize lists
-        Ships = new List<Ship>();
-        Missiles = new List<Missile>();
-        OngoingOperations = new List<Operation>();
-        Hand = new List<PlayableCard>();
-        Discard = new List<PlayableCard>();             
+        ItemCardList = new List<ItemCard>();
+        CounterCardList = new List<CounterCard>();
+        MercenaryCardList = new List<MercenaryCard>();
+        Hand = new List<Card>();
+       // Discard = new List<Card>();             
     }
 
     public void DrawStartingHand()

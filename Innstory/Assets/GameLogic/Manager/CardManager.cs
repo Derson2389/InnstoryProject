@@ -1,8 +1,10 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Innstory;
 
-public class CardManager
+public class CardManager : Singleton<CardManager>
 {
     public List<Card>           allSkillCards = new List<Card>();
     public List<MissionCard>    allMissionCards = new List<MissionCard>();
@@ -11,16 +13,19 @@ public class CardManager
     public List<CounterCard>    allCounterCards = new List<CounterCard>();
     public List<CharacterCard>  allCharCards = new List<CharacterCard>();
 
-    public void Init()
+    static 
+
+
+    public void Init()  
     {
         string configpath = Application.streamingAssetsPath + "/Config/Config.data";
         ConfigManager.LoadConfig(configpath);
-        LoadAllMissionCards();
-        LoadAllItemCards();
-        LoadAllCounterCards();
-        LoadAllMercenaryCards();
-        LoadAllCharacterCards();
-        LoadAllSkillCards();
+        instance.LoadAllMissionCards();
+        instance.LoadAllItemCards();
+        instance.LoadAllCounterCards();
+        instance.LoadAllMercenaryCards();
+        instance.LoadAllCharacterCards();
+        instance.LoadAllSkillCards();
     }
 
     public void LoadAllCharacterCards()
@@ -31,6 +36,46 @@ public class CardManager
             var charCardCfg = CharacterCardsCfgMgr.Instance.List[i];
             charCard.cardType = CardType.CharacterCard;
             charCard.Name = charCardCfg.name;
+        }
+
+    }
+
+    public Card GetCardByType(CardType _carType, int cardID)
+    {
+        switch (_carType)
+        {
+            case CardType.CharacterCard:
+                {
+                    return allCharCards.Find(c => c.ID == cardID);
+                }
+                ;
+            case CardType.CounterCard:
+                {
+                    return allCounterCards.Find(c => c.ID == cardID);
+                }
+
+            case CardType.ItemCard:
+                {
+                    return allItemCards.Find(c => c.ID == cardID);
+                }
+ 
+            case CardType.MercenaryCard:
+                {
+                    return allMercenaryCards.Find(c => c.ID == cardID);
+                }
+
+            case CardType.MissionCard:
+                {
+                    return allMissionCards.Find(c => c.ID == cardID);
+                }
+
+            case CardType.SkillCard:
+                {
+                    return allSkillCards.Find(c => c.ID == cardID);
+                } 
+
+            default:
+                throw new Exception("Invalid card type or card type not found for " + _carType);
         }
 
     }
@@ -65,7 +110,7 @@ public class CardManager
         {
             MercenaryCard merCard = new MercenaryCard();
             var merCardCfg = MercenaryCardsCfgMgr.Instance.List[i];
-            merCard.cardType = CardType.Mercenary;
+            merCard.cardType = CardType.MercenaryCard;
         }
     }
 

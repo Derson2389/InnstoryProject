@@ -4,6 +4,15 @@
 
 public enum GamePhase
 {
+    #region 普通阶段
+    SETUP,
+    AWAITING_CHALLENGER,
+    LOGISTICS_PLANNING,
+    LOGISTICS_RESOLUTION,
+    COMBAT_PLANNING,
+    LASER_WEAPON_RESOLUTION,
+    #endregion
+
 
     #region  战斗阶段
     ChooseMissionCard,  //挑选任务卡

@@ -6,7 +6,7 @@ public enum CardType
     ItemCard,     //道具卡
     CounterCard,  //诡计卡
     SkillCard,    //技能卡
-    Mercenary,    //佣兵卡
+    MercenaryCard,    //佣兵卡
 }
 
 

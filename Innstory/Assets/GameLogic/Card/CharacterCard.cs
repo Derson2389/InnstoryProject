@@ -7,5 +7,11 @@ using UnityEngine;
 /// </summary>
 public class CharacterCard : Card {
 
-	
+
+    public int MaxHealth { get; private set; }
+    public int CurrentHealth { get; private set; }
+
+
+
+
 }
