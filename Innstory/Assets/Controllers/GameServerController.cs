@@ -190,35 +190,13 @@ public class GameServerController : NetworkBehaviour {
 
     private void ClearAnythingTargetingForPlayer(IDamageable target, Player player)
     {
-        foreach (Ship ship in player.Ships)
-        {
-            for (int i = 0; i < ship.Weapons.Count; i++)
-            {
-                Weapon weapon = ship.Weapons[i];
-                if (weapon.Target == target)
-                {
-                    weapon.ClearTarget();
-                }
-            }
-        }
+      
     }
 
     private void ProcessLaserWeaponsForPlayer(Game game, Player player, Player opponent)
     {
         // run through each weapon for each of the players ships and apply damage to the target if its a laser
-        foreach(Ship ship in player.Ships)
-        {
-            foreach(Weapon weapon in ship.Weapons)
-            {
-                if (weapon.WeaponType == WeaponType.LASER // is a laser
-                    && weapon.Target != null              // has a target
-                    && !(weapon.Target is Homeworld))     // target is not a Homeworld (these resolve later)
-                {
-                    weapon.Target.DealDamage(weapon.Damage);
-                    weapon.ClearTarget();                
-                }
-            }
-        }
+        
 
     }
 
@@ -262,170 +240,170 @@ public class GameServerController : NetworkBehaviour {
             case ActionType.CLICK_FOR_CREDIT:
                 ProcessClickForCreditAction(player, game);
                 break;
-            case ActionType.HOST_SHIP:
-                string shipId = actionData[1];
-                string shipyardId = actionData[2];
-                CardCodename cardCodename = (CardCodename)Enum.Parse(typeof(CardCodename), actionData[3]);
-                ProcessHostShipAction(player, opponent, game, shipId, shipyardId, cardCodename);
-                break;
-            case ActionType.DEPLOY_SHIP:
-                shipId = actionData[1];
-                shipyardId = actionData[2];                
-                ProcessDeployShipAction(player, opponent, game, shipId, shipyardId);
-                break;
-            case ActionType.ADVANCE_CONSTRUCTION:
-                shipId = actionData[1];
-                shipyardId = actionData[2];
-                ProcessAdvanceConstructionAction(player, opponent, game, shipId, shipyardId);
-                break;
-            case ActionType.SHIPYARD:
-                shipyardId = actionData[1];
-                ProcessShipyardAction(player, opponent, game, shipyardId);
-                break;
-            case ActionType.OPERATION:
-                string operationId = actionData[1];
-                ProcessOperationAction(player, opponent, game, operationId);
-                break;
-            case ActionType.WEAPON_TARGET:
-                shipId = actionData[1];
-                int weaponIndex = int.Parse(actionData[2]);
-                string targetId = actionData[3];
-                ProcessWeaponTargetAction(player, opponent, game, shipId, weaponIndex, targetId);
-                break;
-            default:
-                ServerLogError("Unknown action type [" + actionType + "]", game);
-                break;
+            //case ActionType.HOST_SHIP:
+            //    string shipId = actionData[1];
+            //    string shipyardId = actionData[2];
+            //    CardCodename cardCodename = (CardCodename)Enum.Parse(typeof(CardCodename), actionData[3]);
+            //    ProcessHostShipAction(player, opponent, game, shipId, shipyardId, cardCodename);
+            //    break;
+            //case ActionType.DEPLOY_SHIP:
+            //    shipId = actionData[1];
+            //    shipyardId = actionData[2];                
+            //    ProcessDeployShipAction(player, opponent, game, shipId, shipyardId);
+            //    break;
+            //case ActionType.ADVANCE_CONSTRUCTION:
+            //    shipId = actionData[1];
+            //    shipyardId = actionData[2];
+            //    ProcessAdvanceConstructionAction(player, opponent, game, shipId, shipyardId);
+            //    break;
+            //case ActionType.SHIPYARD:
+            //    shipyardId = actionData[1];
+            //    ProcessShipyardAction(player, opponent, game, shipyardId);
+            //    break;
+            //case ActionType.OPERATION:
+            //    string operationId = actionData[1];
+            //    ProcessOperationAction(player, opponent, game, operationId);
+            //    break;
+            //case ActionType.WEAPON_TARGET:
+            //    shipId = actionData[1];
+            //    int weaponIndex = int.Parse(actionData[2]);
+            //    string targetId = actionData[3];
+            //    ProcessWeaponTargetAction(player, opponent, game, shipId, weaponIndex, targetId);
+            //    break;
+            //default:
+            //    ServerLogError("Unknown action type [" + actionType + "]", game);
+            //    break;
         }
     }
 
-    private void ProcessWeaponTargetAction(Player player, Player opponent, Game game, string shipId, int weaponIndex, string targetId)
-    {
-        // find ship
-        Ship ship = (Ship)FindCardIn(shipId, player.Ships);
+    //private void ProcessWeaponTargetAction(Player player, Player opponent, Game game, string shipId, int weaponIndex, string targetId)
+    //{
+    //    // find ship
+    //    Ship ship = (Ship)FindCardIn(shipId, player.Ships);
 
-        // TODO - error if ship not active
+    //    // TODO - error if ship not active
 
-        // TODO - error if ship does not have enough weapons (invalid index)
+    //    // TODO - error if ship does not have enough weapons (invalid index)
 
-        // find target
-        IDamageable target = null;
-        if (opponent.Deck.Faction.Homeworld.CardId == targetId)
-        {
-            target = opponent.Deck.Faction.Homeworld;
-        }        
-        else if (target == null)
-        {
-            target = FindCardIn(targetId, opponent.Ships);
-        }
+    //    // find target
+    //    IDamageable target = null;
+    //    if (opponent.Deck.Faction.Homeworld.CardId == targetId)
+    //    {
+    //        target = opponent.Deck.Faction.Homeworld;
+    //    }        
+    //    else if (target == null)
+    //    {
+    //        target = FindCardIn(targetId, opponent.Ships);
+    //    }
 
-        if (target == null)
-        {
-            target = FindCardIn(targetId, opponent.Shipyards);
-        }
+    //    if (target == null)
+    //    {
+    //        target = FindCardIn(targetId, opponent.Shipyards);
+    //    }
 
-        // TODO - error if target is not valid
+    //    // TODO - error if target is not valid
 
-        // if we get here, all ok, set target
-        ship.Weapons[weaponIndex].SetTarget(target);
-    }
+    //    // if we get here, all ok, set target
+    //    ship.Weapons[weaponIndex].SetTarget(target);
+    //}
 
-    private void ProcessOperationAction(Player player, Player opponent, Game game, string operationId)
-    {
-        Operation operation = (Operation)FindCardIn(operationId, player.Hand);
+    //private void ProcessOperationAction(Player player, Player opponent, Game game, string operationId)
+    //{
+    //    Operation operation = (Operation)FindCardIn(operationId, player.Hand);
 
-        // TODO - error if not found
+    //    // TODO - error if not found
 
-        // TODO - error if not enough credits
+    //    // TODO - error if not enough credits
                 
-        player.OngoingOperations.Add(operation);
-        player.ChangeClicks(-1);
-        player.ChangeCredits(-operation.BaseCost);
-        if (operation.OnPlay != null)
-        {
-            operation.OnPlay(game, player);
-        }
-        player.Hand.Remove(operation);
+    //    player.OngoingOperations.Add(operation);
+    //    player.ChangeClicks(-1);
+    //    player.ChangeCredits(-operation.BaseCost);
+    //    if (operation.OnPlay != null)
+    //    {
+    //        operation.OnPlay(game, player);
+    //    }
+    //    player.Hand.Remove(operation);
 
-        if (operation.OperationType == OperationType.ONESHOT)
-        {
-            player.Discard.Add(operation);
-        }
-        else
-        {
-            player.OngoingOperations.Add(operation);
-        }
+    //    if (operation.OperationType == OperationType.ONESHOT)
+    //    {
+    //        player.Discard.Add(operation);
+    //    }
+    //    else
+    //    {
+    //        player.OngoingOperations.Add(operation);
+    //    }
 
-        ServerLog(string.Format("Playing operation {0}({1}) for {2}", operation.CardName, operation.CardId, player.Name));
-    }
+    //    ServerLog(string.Format("Playing operation {0}({1}) for {2}", operation.CardName, operation.CardId, player.Name));
+    //}
 
-    private void ProcessShipyardAction(Player player, Player opponent, Game game, string shipyardId)
-    {
-        Shipyard shipyard = (Shipyard)FindCardIn(shipyardId, player.Hand);
+    //private void ProcessShipyardAction(Player player, Player opponent, Game game, string shipyardId)
+    //{
+    //    Shipyard shipyard = (Shipyard)FindCardIn(shipyardId, player.Hand);
 
-        // TODO - error if not found
+    //    // TODO - error if not found
 
-        // TODO - error if not enough credits
+    //    // TODO - error if not enough credits
 
-        player.Hand.Remove(shipyard);
-        player.Shipyards.Add(shipyard);
-        player.ChangeClicks(-1);
-        player.ChangeCredits(-shipyard.BaseCost);
+    //    player.Hand.Remove(shipyard);
+    //    player.Shipyards.Add(shipyard);
+    //    player.ChangeClicks(-1);
+    //    player.ChangeCredits(-shipyard.BaseCost);
 
-        ServerLog(string.Format("Playing shipyard {0}({1}) for {2}", shipyard.CardName, shipyard.CardId, player.Name));
-    }
+    //    ServerLog(string.Format("Playing shipyard {0}({1}) for {2}", shipyard.CardName, shipyard.CardId, player.Name));
+    //}
 
-    private void ProcessAdvanceConstructionAction(Player player, Player opponent, Game game, string shipId, string shipyardId)
-    {
-        Shipyard shipyard = FindCardIn(shipyardId, player.Shipyards);
-        Ship ship = shipyard.HostedShip;
+    //private void ProcessAdvanceConstructionAction(Player player, Player opponent, Game game, string shipId, string shipyardId)
+    //{
+    //    Shipyard shipyard = FindCardIn(shipyardId, player.Shipyards);
+    //    Ship ship = shipyard.HostedShip;
 
-        // TODO - check that the shipId matches hosted card
+    //    // TODO - check that the shipId matches hosted card
 
-        ServerLog(string.Format("Advancing construction of {0}({1}) on {2}({3}) for {4}", ship.CardName, ship.CardId, shipyard.CardName, shipyard.CardId, player.Name ), game);
-        ship.AdvanceConstruction(1);
-        ChangeClicks(player, -1);
-    }
+    //    ServerLog(string.Format("Advancing construction of {0}({1}) on {2}({3}) for {4}", ship.CardName, ship.CardId, shipyard.CardName, shipyard.CardId, player.Name ), game);
+    //    ship.AdvanceConstruction(1);
+    //    ChangeClicks(player, -1);
+    //}
 
-    private void ProcessDeployShipAction(Player player, Player opponent, Game game, string shipId, string shipyardId)
-    {        
-        Shipyard shipyard = FindCardIn(shipyardId, player.Shipyards);
+    //private void ProcessDeployShipAction(Player player, Player opponent, Game game, string shipId, string shipyardId)
+    //{        
+    //    Shipyard shipyard = FindCardIn(shipyardId, player.Shipyards);
 
-        // TODO - error if shipyard not found
+    //    // TODO - error if shipyard not found
 
-        Ship ship = shipyard.HostedShip;
+    //    Ship ship = shipyard.HostedShip;
 
-        // TODO - error if this is not the correct ship
+    //    // TODO - error if this is not the correct ship
 
-        // TODO - error if not complete
+    //    // TODO - error if not complete
 
-        ServerLog(string.Format("Deploying {0}({1}) from {2}({3}) for {4}", ship.CardName, ship.CardId, shipyard.CardName, shipyard.CardId, player.Name), game);
-        shipyard.ClearHostedCard();
-        player.Ships.Add(ship);
-    }
+    //    ServerLog(string.Format("Deploying {0}({1}) from {2}({3}) for {4}", ship.CardName, ship.CardId, shipyard.CardName, shipyard.CardId, player.Name), game);
+    //    shipyard.ClearHostedCard();
+    //    player.Ships.Add(ship);
+    //}
     
-    private T FindCardIn<T>(string cardId, List<T> findIn) where T : Card
-    {
-        return findIn.Find(t => t.CardId == cardId);        
-    }
+    //private T FindCardIn<T>(string cardId, List<T> findIn) where T : Card
+    //{
+    //    return findIn.Find(t => t.CardId == cardId);        
+    //}
 
-    void ProcessHostShipAction(Player player, Player opponent, Game game, string shipId, string shipyardId, CardCodename cardCodename)
-    {
-        // find card and shipyard by their id
-        PlayableCard card = FindCardIn(shipId, player.Hand);//player.Hand.Find(x => x.CardId == cardId);
-        Ship ship = (Ship)card;
-        // TODO - error if card not in hand - at the moment we just trust that it is
-        // TODO - error if cardCodename is not the same - need to verify this as we pass to opponent on trust otherwise
+    //void ProcessHostShipAction(Player player, Player opponent, Game game, string shipId, string shipyardId, CardCodename cardCodename)
+    //{
+    //    // find card and shipyard by their id
+    //    PlayableCard card = FindCardIn(shipId, player.Hand);//player.Hand.Find(x => x.CardId == cardId);
+    //    Ship ship = (Ship)card;
+    //    // TODO - error if card not in hand - at the moment we just trust that it is
+    //    // TODO - error if cardCodename is not the same - need to verify this as we pass to opponent on trust otherwise
         
-        Shipyard shipyard = FindCardIn(shipyardId, player.Shipyards);//player.Shipyards.Find(x => x.ShipyardId == shipyardId);
+    //    Shipyard shipyard = FindCardIn(shipyardId, player.Shipyards);//player.Shipyards.Find(x => x.ShipyardId == shipyardId);
 
-        // TODO - error if shipyard not found
+    //    // TODO - error if shipyard not found
 
-        ServerLog(string.Format("Trying to host {0}({1}) on {2}({3}) for {4}", ship.CardName, ship.CardId, shipyard.CardName, shipyard.CardId, player.Name), game);        
-        if (TryHost(game, player, ship, shipyard) == false)
-        {
-            ServerLogError(string.Format("Failed trying to host {0}({1}) on {2}({3}) for {4}", ship.CardName, ship.CardId, shipyard.CardName, shipyard.CardId, player.Name), game);
-        }
-    }
+    //    ServerLog(string.Format("Trying to host {0}({1}) on {2}({3}) for {4}", ship.CardName, ship.CardId, shipyard.CardName, shipyard.CardId, player.Name), game);        
+    //    if (TryHost(game, player, ship, shipyard) == false)
+    //    {
+    //        ServerLogError(string.Format("Failed trying to host {0}({1}) on {2}({3}) for {4}", ship.CardName, ship.CardId, shipyard.CardName, shipyard.CardId, player.Name), game);
+    //    }
+    //}
 
     private void ChangeCredits(Player player, int change)
     {
@@ -449,37 +427,37 @@ public class GameServerController : NetworkBehaviour {
         //NetworkServer.SendToClient(player.ConnectionId, (short)MessageTypes.MessageType.CLICKS, clicksMsg);
     }
     
-    public bool TryHost(Game game, Player player, Ship ship, Shipyard shipyard)
-    {
-        ServerLog(string.Format("TryHost player{0}, shipCard{1}, shipyard{2}", player.Name, ship.CardId, shipyard.CardId), game);
-        // can only host one card
-        if (shipyard.HostedShip != null)
-            return false;
+    //public bool TryHost(Game game, Player player, Ship ship, Shipyard shipyard)
+    //{
+    //    ServerLog(string.Format("TryHost player{0}, shipCard{1}, shipyard{2}", player.Name, ship.CardId, shipyard.CardId), game);
+    //    // can only host one card
+    //    if (shipyard.HostedShip != null)
+    //        return false;
 
-        // can only host ships up to a certain size
-        if (ship.Size > shipyard.MaxSize)
-            return false;
+    //    // can only host ships up to a certain size
+    //    if (ship.Size > shipyard.MaxSize)
+    //        return false;
 
-        // need enough money
-        if (ship.BaseCost > player.Credits)
-            return false;
+    //    // need enough money
+    //    if (ship.BaseCost > player.Credits)
+    //        return false;
 
-        // hosting costs a click 
-        if (player.Clicks < 1)
-            return false;
+    //    // hosting costs a click 
+    //    if (player.Clicks < 1)
+    //        return false;
 
-        // if we get here is all good, host away
-        shipyard.HostCard(ship);
-        ship.StartConstruction();
-        ChangeCredits(player, -ship.BaseCost);
-        ChangeClicks(player, -1);       
-        if (ship.OnPlay != null)
-        {
-            ship.OnPlay(game, player);
-        }
+    //    // if we get here is all good, host away
+    //    shipyard.HostCard(ship);
+    //    ship.StartConstruction();
+    //    ChangeCredits(player, -ship.BaseCost);
+    //    ChangeClicks(player, -1);       
+    //    if (ship.OnPlay != null)
+    //    {
+    //        ship.OnPlay(game, player);
+    //    }
          
-        return true;
-    }
+    //    return true;
+    //}
 
     void ProcessClickForCardAction(Player player, Game game)
     {
@@ -501,13 +479,13 @@ public class GameServerController : NetworkBehaviour {
         ChangeClicks(player, -1);
 
         // draw card for player
-        PlayableCard card = player.Deck.Draw();
+        Card card = player.Deck.Draw();
         player.Hand.Add(card);
 
         // send it to the client
         var cardMsg = new MessageTypes.DrawnCardMessage();
-        cardMsg.CardCodename = card.CardCodename.ToString();
-        cardMsg.cardId = card.CardId;
+        cardMsg.CardCodename = card.Name.ToString();
+        cardMsg.cardId = card.ID.ToString();
         NetworkServer.SendToClient(player.ConnectionId, (short)MessageTypes.MessageType.DRAWN_CARD, cardMsg);
 
         ServerLog(string.Format("{0} clicks for a card", player.Name), game);
@@ -591,16 +569,16 @@ public class GameServerController : NetworkBehaviour {
     {
         player.DrawStartingHand();
 
-        // send starting hand
-        for (int i = 0; i < player.Hand.Count; i++)
-        {
-            var cardMsg = new MessageTypes.DrawnCardMessage();
-            var card = player.Hand[i];
-            ServerLog(string.Format("{0} card{1}:{2}", player.Name, i, card.CardName), game);
-            cardMsg.CardCodename = card.CardCodename.ToString();
-            cardMsg.cardId = card.CardId;
-            NetworkServer.SendToClient(player.ConnectionId, (short)MessageTypes.MessageType.DRAWN_CARD, cardMsg);
-        }
+        //// send starting hand
+        //for (int i = 0; i < player.Hand.Count; i++)
+        //{
+        //    var cardMsg = new MessageTypes.DrawnCardMessage();
+        //    var card = player.Hand[i];
+        //    ServerLog(string.Format("{0} card{1}:{2}", player.Name, i, card.CardName), game);
+        //    cardMsg.CardCodename = card.CardCodename.ToString();
+        //    cardMsg.cardId = card.CardId;
+        //    NetworkServer.SendToClient(player.ConnectionId, (short)MessageTypes.MessageType.DRAWN_CARD, cardMsg);
+        //}
     }
 
     private void SendStartingState(Game game)

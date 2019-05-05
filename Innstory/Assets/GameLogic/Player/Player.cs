@@ -18,7 +18,8 @@ public class Player {
     public List<ItemCard> ItemCardList { get; private set; }
     public List<CounterCard> CounterCardList { get; private set; }
     public List<MercenaryCard> MercenaryCardList { get; private set; }
-    ///public List<Operation> OngoingOperations { get; private set; }
+    public List<SkillCard> SkillCardList { get; private set; }
+    
 
     public Player(string name, int connectionId)
     {

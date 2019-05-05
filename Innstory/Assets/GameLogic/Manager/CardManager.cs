@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Innstory;
+using Object = UnityEngine.Object;
 
 public class CardManager : Singleton<CardManager>
 {
@@ -132,11 +133,13 @@ public class CardManager : Singleton<CardManager>
         }
     }
 
-    public void  CreateCardPrefab(Card card, String prefabName, bool belongsToPlayer)
+    public Transform CreateCardPrefab(Card card, String prefabName, bool belongsToPlayer)
     {
-        Transform transform = GameObject.Instantiate(); ;
+        GameObject go = (GameObject)Resources.Load(prefabName);
+        Transform transform = Object.Instantiate(go.transform);
+
+        return transform;
 
     }
-
 
 }

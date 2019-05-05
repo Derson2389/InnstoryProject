@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &177196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 406008}
+  - component: {fileID: 11459506}
+  m_Layer: 0
+  m_Name: GameViewController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &406008
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177196}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11459506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9dd8431a3107243a484d88f9b936d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MissilePrefab: {fileID: 22418748, guid: 5f52405d1c5f09246ad4557cb5e4140e, type: 3}
+  TargetSelector: {fileID: 22432442, guid: ecd605df2e8035c4793f467f8cadbf24, type: 3}
+  ConstructionPanelPrefab: {fileID: 22456676, guid: de76829514f91be409020136d1319f58,
+    type: 3}
+  GameLogEntryPrefab: {fileID: 22450894, guid: 1bb55991b723fa443a6700e32704a2bf, type: 3}
+  GameLogContent: {fileID: 0}
+  GameLog: {fileID: 0}
+  DeckSelectDialog: {fileID: 0}
+  ClickForCreditsButton: {fileID: 0}
+  ClickForCardsButton: {fileID: 0}
+  EndPhaseButton: {fileID: 0}
+  OpponentNameGUI: {fileID: 0}
+  OpponentCreditsGUI: {fileID: 0}
+  OpponentClicksGUI: {fileID: 0}
+  OpponentCardsInHandGUI: {fileID: 0}
+  OpponentCardsInDeckGUI: {fileID: 0}
+  OpponentCardsInDiscardGUI: {fileID: 0}
+  OpponentConstructionAreaGUI: {fileID: 0}
+  OpponentShipAreaGUI: {fileID: 0}
+  OpponentMissileAreaGUI: {fileID: 0}
+  PlayerNameGUI: {fileID: 0}
+  PlayerCreditsGUI: {fileID: 0}
+  PlayerClicksGUI: {fileID: 0}
+  PlayerCardsInDeckGUI: {fileID: 0}
+  PlayerCardsInDiscardGUI: {fileID: 0}
+  PlayerHandGUI: {fileID: 0}
+  PlayerConstructionAreaGUI: {fileID: 0}
+  PlayerShipAreaGUI: {fileID: 0}
+  PlayerMissileAreaGUI: {fileID: 0}
+  GamePhaseGUI: {fileID: 0}

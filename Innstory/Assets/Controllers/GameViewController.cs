@@ -8,7 +8,7 @@ public class GameViewController : MonoBehaviour {
 
     private Queue<Transform> _cardPlaceholders;
 
-    public CardPrefabFactory CardPrefabFactory;
+    public CardManager CardMgr;
     public Transform MissilePrefab;
 
     public Transform TargetSelector;
@@ -64,7 +64,7 @@ public class GameViewController : MonoBehaviour {
     public void AddCharacter(CharacterCard characterCard, bool belongsToPlayer)
     {
         // instantiate
-        Transform homeworldTransform = InstantiateCardPrefab(homeworld, belongsToPlayer);
+        Transform homeworldTransform = InstantiateCardPrefab(characterCard, belongsToPlayer);
 
         // position 
         Transform constructionArea = (belongsToPlayer ? PlayerConstructionAreaGUI : OpponentConstructionAreaGUI);
@@ -72,95 +72,95 @@ public class GameViewController : MonoBehaviour {
     }
 
 
-    public void AddHomeworld(Homeworld homeworld, bool belongsToPlayer)
-    {
-        // instantiate
-        Transform homeworldTransform = InstantiateCardPrefab(homeworld, belongsToPlayer);
+    //public void AddHomeworld(Homeworld homeworld, bool belongsToPlayer)
+    //{
+    //    // instantiate
+    //    Transform homeworldTransform = InstantiateCardPrefab(homeworld, belongsToPlayer);
 
-        // position 
-        Transform constructionArea = (belongsToPlayer ? PlayerConstructionAreaGUI : OpponentConstructionAreaGUI);
-        homeworldTransform.SetParent(constructionArea);
-    }
+    //    // position 
+    //    Transform constructionArea = (belongsToPlayer ? PlayerConstructionAreaGUI : OpponentConstructionAreaGUI);
+    //    homeworldTransform.SetParent(constructionArea);
+    //}
 
     public void DestroyCardTransform(Card card)
     {
-        Transform transform = _transformById[card.CardId];
+        Transform transform = _transformById[card.ID.ToString()];
         Destroy(transform.gameObject);
     }
 
     public void MoveToConstructionArea(Card card, bool belongsToPlayer)
     {
-        Transform transform = _transformById[card.CardId];
+        Transform transform = _transformById[card.ID.ToString()];
         Transform constructionArea = (belongsToPlayer ? PlayerConstructionAreaGUI : OpponentConstructionAreaGUI);
         transform.SetParent(constructionArea);
     }
 
-    public void AddOperation(Operation operation, bool belongsToPlayer)
-    {
-        // instantiate
-        Transform operationTransform = InstantiateCardPrefab(operation, belongsToPlayer);
+    //public void AddOperation(Operation operation, bool belongsToPlayer)
+    //{
+    //    // instantiate
+    //    Transform operationTransform = InstantiateCardPrefab(operation, belongsToPlayer);
 
-        // position 
-        Transform constructionArea = (belongsToPlayer ? PlayerConstructionAreaGUI : OpponentConstructionAreaGUI);
-        operationTransform.SetParent(constructionArea);
-    }
+    //    // position 
+    //    Transform constructionArea = (belongsToPlayer ? PlayerConstructionAreaGUI : OpponentConstructionAreaGUI);
+    //    operationTransform.SetParent(constructionArea);
+    //}
 
-    public void AddShipyard(Shipyard shipyard, bool belongsToPlayer)
-    {        
-        // instantiate
-        Transform shipyardTransform = InstantiateCardPrefab(shipyard, belongsToPlayer);
+    //public void AddShipyard(Shipyard shipyard, bool belongsToPlayer)
+    //{        
+    //    // instantiate
+    //    Transform shipyardTransform = InstantiateCardPrefab(shipyard, belongsToPlayer);
 
-        // position 
-        Transform constructionArea = (belongsToPlayer ? PlayerConstructionAreaGUI : OpponentConstructionAreaGUI);
-        shipyardTransform.SetParent(constructionArea);        
-    }
+    //    // position 
+    //    Transform constructionArea = (belongsToPlayer ? PlayerConstructionAreaGUI : OpponentConstructionAreaGUI);
+    //    shipyardTransform.SetParent(constructionArea);        
+    //}
 
-    public void HostShip(Ship ship, Shipyard shipyard, bool belongsToPlayer)
-    {
-        Transform shipTransform;
-        if (belongsToPlayer)
-        {
-            // will already be in hand, just find it
-            shipTransform = _transformById[ship.CardId];
-        }
-        else
-        {
-            // will not exist yet, need to instantiate
-            shipTransform = InstantiateCardPrefab(ship, false);
-        }
-        Transform shipyardTransform = FindCardTransformById(shipyard.CardId);
+    //public void HostShip(Ship ship, Shipyard shipyard, bool belongsToPlayer)
+    //{
+    //    Transform shipTransform;
+    //    if (belongsToPlayer)
+    //    {
+    //        // will already be in hand, just find it
+    //        shipTransform = _transformById[ship.CardId];
+    //    }
+    //    else
+    //    {
+    //        // will not exist yet, need to instantiate
+    //        shipTransform = InstantiateCardPrefab(ship, false);
+    //    }
+    //    Transform shipyardTransform = FindCardTransformById(shipyard.CardId);
         
-        // add "construction remaining" overlay
-        var constructionPanelPrefab = Instantiate(ConstructionPanelPrefab);
-        constructionPanelPrefab.name = "ConstructionPanel";
-        var constructionRemaining = (Text)constructionPanelPrefab.Find("ConstructionRemaining").GetComponent(typeof(Text));
-        constructionRemaining.text = ship.ConstructionRemaining.ToString();
+    //    // add "construction remaining" overlay
+    //    var constructionPanelPrefab = Instantiate(ConstructionPanelPrefab);
+    //    constructionPanelPrefab.name = "ConstructionPanel";
+    //    var constructionRemaining = (Text)constructionPanelPrefab.Find("ConstructionRemaining").GetComponent(typeof(Text));
+    //    constructionRemaining.text = ship.ConstructionRemaining.ToString();
 
-        if (belongsToPlayer == false)
-        {
-            // deactivate the "advance" button
-            Button button = constructionPanelPrefab.Find("AdvanceConstructionButton").GetComponent<Button>();
-            button.transform.localScale = new Vector3();
-            button.interactable = false;            
-        }
+    //    if (belongsToPlayer == false)
+    //    {
+    //        // deactivate the "advance" button
+    //        Button button = constructionPanelPrefab.Find("AdvanceConstructionButton").GetComponent<Button>();
+    //        button.transform.localScale = new Vector3();
+    //        button.interactable = false;            
+    //    }
 
-        constructionPanelPrefab.SetParent(shipTransform);
-        constructionPanelPrefab.localPosition = new Vector3(0, 0, 0);
+    //    constructionPanelPrefab.SetParent(shipTransform);
+    //    constructionPanelPrefab.localPosition = new Vector3(0, 0, 0);
         
-        // position the ship on the shipyard
-        shipTransform.SetParent(shipyardTransform);
-        shipTransform.localPosition = new Vector3(15, 15, 0);
-    }
+    //    // position the ship on the shipyard
+    //    shipTransform.SetParent(shipyardTransform);
+    //    shipTransform.localPosition = new Vector3(15, 15, 0);
+    //}
 
-    public void SpawnMissile(Missile missile, bool belongsToPlayer)
-    {
-        var missileTransform = Instantiate(MissilePrefab);
-        MissileHandler handler = missileTransform.GetComponent<MissileHandler>();
-        handler.SetTarget((Card)missile.Target);
+    //public void SpawnMissile(Missile missile, bool belongsToPlayer)
+    //{
+    //    var missileTransform = Instantiate(MissilePrefab);
+    //    MissileHandler handler = missileTransform.GetComponent<MissileHandler>();
+    //    handler.SetTarget((Card)missile.Target);
 
-        var area = (belongsToPlayer ? PlayerMissileAreaGUI : OpponentMissileAreaGUI);
-        missileTransform.SetParent(area);
-    }
+    //    var area = (belongsToPlayer ? PlayerMissileAreaGUI : OpponentMissileAreaGUI);
+    //    missileTransform.SetParent(area);
+    //}
 
     public void UpdateGamePhase(GamePhase gamePhase)
     {
@@ -204,90 +204,90 @@ public class GameViewController : MonoBehaviour {
             );
 
         // handle "advance construction" buttons
-        var constructionHandlers = FindObjectsOfType<AdvanceConstructionHandler>();
-        foreach (AdvanceConstructionHandler handler in constructionHandlers)
-        {
-            (handler.GetComponent<Button>()).interactable = planningClicksRemain ||
-                (gamePhase == GamePhase.LOGISTICS_PLANNING && handler.IsComplete());
-        }
+        //var constructionHandlers = FindObjectsOfType<AdvanceConstructionHandler>();
+        //foreach (AdvanceConstructionHandler handler in constructionHandlers)
+        //{
+        //    (handler.GetComponent<Button>()).interactable = planningClicksRemain ||
+        //        (gamePhase == GamePhase.LOGISTICS_PLANNING && handler.IsComplete());
+        //}
 
-        // handle weapon buttons
-        var weaponHandlers = FindObjectsOfType<WeaponHandler>();
-        foreach (WeaponHandler handler in weaponHandlers)
-        {
-            (handler.GetComponent<Button>()).interactable = (handler.BelongsToPlayer) &&
-                (gamePhase == GamePhase.COMBAT_PLANNING);
-        }
+        //// handle weapon buttons
+        //var weaponHandlers = FindObjectsOfType<WeaponHandler>();
+        //foreach (WeaponHandler handler in weaponHandlers)
+        //{
+        //    (handler.GetComponent<Button>()).interactable = (handler.BelongsToPlayer) &&
+        //        (gamePhase == GamePhase.COMBAT_PLANNING);
+        //}
     }
 
-    public void ClearWeaponTarget(Ship ship, int weaponIndex)
-    {
-        Transform shipTransform = FindCardTransformById(ship.CardId);
-        Transform weaponPanel = shipTransform.Find("WeaponsPanel");
-        Transform weaponTransform = weaponPanel.GetChild(weaponIndex);
-        WeaponHandler handler = weaponTransform.GetComponent<WeaponHandler>();
-        handler.ClearTarget();
-    }
+    //public void ClearWeaponTarget(Ship ship, int weaponIndex)
+    //{
+    //    Transform shipTransform = FindCardTransformById(ship.CardId);
+    //    Transform weaponPanel = shipTransform.Find("WeaponsPanel");
+    //    Transform weaponTransform = weaponPanel.GetChild(weaponIndex);
+    //    WeaponHandler handler = weaponTransform.GetComponent<WeaponHandler>();
+    //    handler.ClearTarget();
+    //}
 
-    public void SetWeaponTarget(Ship ship, int weaponIndex, IDamageable target)
-    {
-        Transform shipTransform = FindCardTransformById(ship.CardId);
-        Transform weaponPanel = shipTransform.Find("WeaponsPanel");
-        Transform weaponTransform = weaponPanel.GetChild(weaponIndex);
-        WeaponHandler handler = weaponTransform.GetComponent<WeaponHandler>();
-        handler.SetOpponentTarget((Card)target);
+    //public void SetWeaponTarget(Ship ship, int weaponIndex, IDamageable target)
+    //{
+    //    Transform shipTransform = FindCardTransformById(ship.CardId);
+    //    Transform weaponPanel = shipTransform.Find("WeaponsPanel");
+    //    Transform weaponTransform = weaponPanel.GetChild(weaponIndex);
+    //    WeaponHandler handler = weaponTransform.GetComponent<WeaponHandler>();
+    //    handler.SetOpponentTarget((Card)target);
          
-    }
+    //}
 
-    public void UpdateConstructionRemaining(Ship ship)
-    {
-        Transform shipTransform = FindCardTransformById(ship.CardId);
-        Transform constructionRemainingT = shipTransform.Find("ConstructionPanel/ConstructionRemaining");
-        Text constructionRemaining = (Text)constructionRemainingT.GetComponent(typeof(Text));
-        constructionRemaining.text = ship.ConstructionRemaining.ToString();
-    }
+    //public void UpdateConstructionRemaining(Ship ship)
+    //{
+    //    Transform shipTransform = FindCardTransformById(ship.CardId);
+    //    Transform constructionRemainingT = shipTransform.Find("ConstructionPanel/ConstructionRemaining");
+    //    Text constructionRemaining = (Text)constructionRemainingT.GetComponent(typeof(Text));
+    //    constructionRemaining.text = ship.ConstructionRemaining.ToString();
+    //}
 
-    public void AddCardToHand(PlayableCard card, bool replacesUnknown)
-    {
-        // instantiate the card prefab
-        Transform cardPrefab = InstantiateCardPrefab(card, true);
+    //public void AddCardToHand(PlayableCard card, bool replacesUnknown)
+    //{
+    //    // instantiate the card prefab
+    //    Transform cardPrefab = InstantiateCardPrefab(card, true);
 
-        // add it to the players hand area
-        cardPrefab.SetParent(PlayerHandGUI);
+    //    // add it to the players hand area
+    //    cardPrefab.SetParent(PlayerHandGUI);
 
-        if (replacesUnknown)
-        {
-            // remove the placeholder face down card
-            Destroy(_cardPlaceholders.Dequeue().gameObject);
-        }
-    }
+    //    if (replacesUnknown)
+    //    {
+    //        // remove the placeholder face down card
+    //        Destroy(_cardPlaceholders.Dequeue().gameObject);
+    //    }
+    //}
 
-    public void AddUnknownCardToHand()
-    {
-        var card = CardPrefabFactory.CreateCardPrefab(new UnknownCard(CardCodename.UNKNOWN), true);
-        card.SetParent(PlayerHandGUI);
-        _cardPlaceholders.Enqueue(card);
-    }
+    //public void AddUnknownCardToHand()
+    //{
+    //    var card = CardPrefabFactory.CreateCardPrefab(new UnknownCard(CardCodename.UNKNOWN), true);
+    //    card.SetParent(PlayerHandGUI);
+    //    _cardPlaceholders.Enqueue(card);
+    //}
 
-    public void DeployShip(Ship ship, bool belongsToPlayer)
-    {
-        Transform shipArea = (belongsToPlayer ? PlayerShipAreaGUI : OpponentShipAreaGUI);
+    //public void DeployShip(Ship ship, bool belongsToPlayer)
+    //{
+    //    Transform shipArea = (belongsToPlayer ? PlayerShipAreaGUI : OpponentShipAreaGUI);
 
-        Transform shipTransform = FindCardTransformById(ship.CardId);        
-        shipTransform.SetParent(shipArea);
+    //    Transform shipTransform = FindCardTransformById(ship.CardId);        
+    //    shipTransform.SetParent(shipArea);
 
-        RemoveConstructionPanel(ship);
-    }
+    //    RemoveConstructionPanel(ship);
+    //}
 
-    public void RemoveConstructionPanel(Ship ship)
-    {
-        Transform shipTransform = FindCardTransformById(ship.CardId);
-        Destroy(shipTransform.Find("ConstructionPanel").gameObject);
-    }
+    //public void RemoveConstructionPanel(Ship ship)
+    //{
+    //    Transform shipTransform = FindCardTransformById(ship.CardId);
+    //    Destroy(shipTransform.Find("ConstructionPanel").gameObject);
+    //}
 
     public void RemoveDeadCard(Card card)
     {
-        Transform cardTransform = FindCardTransformById(card.ID);
+        Transform cardTransform = FindCardTransformById(card.ID.ToString());
         Destroy(cardTransform.gameObject);
     }
 
@@ -304,10 +304,10 @@ public class GameViewController : MonoBehaviour {
 
     private Transform InstantiateCardPrefab(Card card, bool belongsToPlayer)
     {
-        Transform cardPrefab = CardPrefabFactory.CreateCardPrefab(card, belongsToPlayer);
+        Transform cardPrefab = CardMgr.CreateCardPrefab(card, "prefabName" , belongsToPlayer);
 
         // store in lookup so we can find it by its id
-        _transformById[card.CardId] = cardPrefab;
+        _transformById[card.ID.ToString()] = cardPrefab;
 
         return cardPrefab;
     }
@@ -318,7 +318,7 @@ public class GameViewController : MonoBehaviour {
         SetText(OpponentCreditsGUI, opponent.Credits.ToString());
         SetText(OpponentCardsInHandGUI, opponent.Hand.Count.ToString());
         SetText(OpponentCardsInDeckGUI, opponent.Deck.GetCount().ToString());
-        SetText(OpponentCardsInDiscardGUI, opponent.Discard.Count.ToString());
+        ///SetText(OpponentCardsInDiscardGUI, opponent.Discard.Count.ToString());
     }
 
     public void UpdatePlayerStateGUI(Player player)
@@ -326,7 +326,7 @@ public class GameViewController : MonoBehaviour {
         SetText(PlayerClicksGUI, player.Clicks.ToString());
         SetText(PlayerCreditsGUI, player.Credits.ToString());
         SetText(PlayerCardsInDeckGUI, player.Deck.GetCount().ToString());
-        SetText(PlayerCardsInDiscardGUI, player.Discard.Count.ToString());
+        ///SetText(PlayerCardsInDiscardGUI, player.Discard.Count.ToString());
     }
 
     private Transform FindCardTransformById(string cardId)
