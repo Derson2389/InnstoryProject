@@ -61,6 +61,17 @@ public class GameViewController : MonoBehaviour {
         selector.SetParent(PlayerHandGUI.parent);
     }
 
+    public void AddCharacter(CharacterCard characterCard, bool belongsToPlayer)
+    {
+        // instantiate
+        Transform homeworldTransform = InstantiateCardPrefab(homeworld, belongsToPlayer);
+
+        // position 
+        Transform constructionArea = (belongsToPlayer ? PlayerConstructionAreaGUI : OpponentConstructionAreaGUI);
+        homeworldTransform.SetParent(constructionArea);
+    }
+
+
     public void AddHomeworld(Homeworld homeworld, bool belongsToPlayer)
     {
         // instantiate
@@ -276,7 +287,7 @@ public class GameViewController : MonoBehaviour {
 
     public void RemoveDeadCard(Card card)
     {
-        Transform cardTransform = FindCardTransformById(card.CardId);
+        Transform cardTransform = FindCardTransformById(card.ID);
         Destroy(cardTransform.gameObject);
     }
 

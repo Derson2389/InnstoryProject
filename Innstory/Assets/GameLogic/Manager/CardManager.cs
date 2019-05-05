@@ -13,9 +13,6 @@ public class CardManager : Singleton<CardManager>
     public List<CounterCard>    allCounterCards = new List<CounterCard>();
     public List<CharacterCard>  allCharCards = new List<CharacterCard>();
 
-    static 
-
-
     public void Init()  
     {
         string configpath = Application.streamingAssetsPath + "/Config/Config.data";
@@ -121,7 +118,6 @@ public class CardManager : Singleton<CardManager>
             CounterCard ctc = new CounterCard();
             var ctcCfg = CounterCardsCfgMgr.Instance.List[i];
             ctc.cardType = CardType.CounterCard;
-
         }
     }
 
@@ -135,5 +131,12 @@ public class CardManager : Singleton<CardManager>
 
         }
     }
+
+    public void  CreateCardPrefab(Card card, String prefabName, bool belongsToPlayer)
+    {
+        Transform transform = GameObject.Instantiate(); ;
+
+    }
+
 
 }
