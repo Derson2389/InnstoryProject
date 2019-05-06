@@ -8,6 +8,7 @@ public class Deck {
 
     public Faction Faction { get; private set; }
     private List<Card> _cards;
+    public CharacterCard CharacterCard { get; private set; }
     
     public Deck()
     {
@@ -15,7 +16,8 @@ public class Deck {
 
         // temp hard coded deck
         CharacterCard charCard = (CharacterCard)CardManager.instance.GetCardByType(CardType.CharacterCard, 1);
-
+        List<MissionCard> dummyMissionCard = new List<MissionCard>();
+        Faction = new Faction("DefaultFaction", 8, 100, 10, dummyMissionCard, CharacterCard);
 
         //List<Shipyard> shipyards = new List<Shipyard>();
         //shipyards.Add((Shipyard)CardFactory.CreateCard(CardCodename.SHIPYARD));
