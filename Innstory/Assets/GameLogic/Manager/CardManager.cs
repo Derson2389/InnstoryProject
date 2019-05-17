@@ -7,7 +7,7 @@ using Object = UnityEngine.Object;
 
 public class CardManager : Singleton<CardManager>
 {
-    public List<Card>           allSkillCards = new List<Card>();
+    public List<SkillCard>      allSkillCards = new List<SkillCard>();
     public List<MissionCard>    allMissionCards = new List<MissionCard>();
     public List<ItemCard>       allItemCards = new List<ItemCard>();
     public List<MercenaryCard>  allMercenaryCards = new List<MercenaryCard>();
@@ -32,8 +32,8 @@ public class CardManager : Singleton<CardManager>
         {
             CharacterCard charCard = new CharacterCard();
             var charCardCfg = CharacterCardsCfgMgr.Instance.List[i];
-            charCard.cardType = CardType.CharacterCard;
-            charCard.Name = charCardCfg.name;
+            charCard.Init<CharacterCardsCfg>(charCardCfg);
+            allCharCards.Add(charCard);
         }
 
     }
@@ -44,32 +44,32 @@ public class CardManager : Singleton<CardManager>
         {
             case CardType.CharacterCard:
                 {
-                    return allCharCards.Find(c => c.ID == cardID);
+                    return instance.allCharCards.Find(c => c.ID == cardID);
                 }
                 ;
             case CardType.CounterCard:
                 {
-                    return allCounterCards.Find(c => c.ID == cardID);
+                    return instance.allCounterCards.Find(c => c.ID == cardID);
                 }
 
             case CardType.ItemCard:
                 {
-                    return allItemCards.Find(c => c.ID == cardID);
+                    return instance.allItemCards.Find(c => c.ID == cardID);
                 }
  
             case CardType.MercenaryCard:
                 {
-                    return allMercenaryCards.Find(c => c.ID == cardID);
+                    return instance.allMercenaryCards.Find(c => c.ID == cardID);
                 }
 
             case CardType.MissionCard:
                 {
-                    return allMissionCards.Find(c => c.ID == cardID);
+                    return instance.allMissionCards.Find(c => c.ID == cardID);
                 }
 
             case CardType.SkillCard:
                 {
-                    return allSkillCards.Find(c => c.ID == cardID);
+                    return instance.allSkillCards.Find(c => c.ID == cardID);
                 } 
 
             default:
@@ -85,8 +85,8 @@ public class CardManager : Singleton<CardManager>
         {
             MissionCard mc = new MissionCard();
             var mcCfg = MissionCardsCfgMgr.Instance.List[i];
-            mc.cardType = CardType.MissionCard;
-            mc.descInfo = mcCfg.cardEffect;
+            mc.Init<MissionCardsCfg>(mcCfg);
+            allMissionCards.Add(mc);
         }
     }
 
@@ -96,9 +96,8 @@ public class CardManager : Singleton<CardManager>
         {
             ItemCard ic = new ItemCard();
             var icCfg = ItemCardsCfgMgr.Instance.List[i];
-            ic.cardType = CardType.ItemCard;
-            ic.descInfo = icCfg.cardEffect;
-
+            ic.Init<ItemCardsCfg>(icCfg);
+            allItemCards.Add(ic);
         }
     }
 
@@ -108,7 +107,8 @@ public class CardManager : Singleton<CardManager>
         {
             MercenaryCard merCard = new MercenaryCard();
             var merCardCfg = MercenaryCardsCfgMgr.Instance.List[i];
-            merCard.cardType = CardType.MercenaryCard;
+            merCard.Init<MercenaryCardsCfg>(merCardCfg);
+            allMercenaryCards.Add(merCard);
         }
     }
 
@@ -118,7 +118,9 @@ public class CardManager : Singleton<CardManager>
         {
             CounterCard ctc = new CounterCard();
             var ctcCfg = CounterCardsCfgMgr.Instance.List[i];
-            ctc.cardType = CardType.CounterCard;
+            ctc.Init<CounterCardsCfg>(ctcCfg);
+
+            allCounterCards.Add(ctc);
         }
     }
 
@@ -128,8 +130,8 @@ public class CardManager : Singleton<CardManager>
         {
             SkillCard sc = new SkillCard();
             var scCfg = SkillCardsCfgMgr.Instance.List[i];
-            sc.cardType = CardType.SkillCard;
-
+            sc.Init<SkillCardsCfg>(scCfg);
+            allSkillCards.Add(sc);
         }
     }
 

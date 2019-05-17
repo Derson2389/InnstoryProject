@@ -29,7 +29,6 @@ public abstract class Card {
     public int PlayerID;
 
 
-
     /// <summary>
     /// 卡牌名称
     /// </summary>
@@ -72,6 +71,6 @@ public abstract class Card {
 
     public bool doneAddingToGraveyard = false;
 
-      
+    public abstract void Init<T>(T t);
 
 }

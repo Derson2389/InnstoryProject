@@ -8,7 +8,6 @@ public class Deck {
 
     public Faction Faction { get; private set; }
     private List<Card> _cards;
-    public CharacterCard CharacterCard { get; private set; }
     
     public Deck()
     {
@@ -17,7 +16,7 @@ public class Deck {
         // temp hard coded deck
         CharacterCard charCard = (CharacterCard)CardManager.instance.GetCardByType(CardType.CharacterCard, 1);
         List<MissionCard> dummyMissionCard = new List<MissionCard>();
-        Faction = new Faction("DefaultFaction", 8, 100, 10, dummyMissionCard, CharacterCard);
+        Faction = new Faction("DefaultFaction", 8, 100, 10, dummyMissionCard, charCard);
 
         //List<Shipyard> shipyards = new List<Shipyard>();
         //shipyards.Add((Shipyard)CardFactory.CreateCard(CardCodename.SHIPYARD));
@@ -66,18 +65,18 @@ public class Deck {
 
     public Deck(string dataStr)
     {
-        //string[] data = dataStr.Split('#');
-        //Faction = new Faction(data[0]);
+        string[] data = dataStr.Split('#');
+        Faction = new Faction(data[0]);
 
-        //_cards = new List<PlayableCard>();
-        //string[] cardData = data[1].Split('|');
-        //int numCards = int.Parse(cardData[0]);
+        _cards = new List<Card>();
+        string[] cardData = data[1].Split('|');
+        int numCards = int.Parse(cardData[0]);
 
-        //for (int i = 0; i < numCards; i++)
-        //{
-        //    PlayableCard card = (PlayableCard)CardFactory.CreateCard((CardCodename)Enum.Parse(typeof(CardCodename), cardData[1 + (i * 2)]), cardData[2 + (i * 2)]);
-        //    _cards.Add(card);
-        //}
+        for (int i = 0; i < numCards; i++)
+        {
+            Card card = (Card)CardManager.instance.GetCardByType(CardType.MissionCard, int.Parse(cardData[2 + (i * 2)]));
+            _cards.Add(card);
+        }
     }
 
     public override string ToString()
@@ -89,19 +88,19 @@ public class Deck {
     {
         StringBuilder sb = new StringBuilder();
 
-        //sb.Append(Faction.ToString());
-        //sb.Append("#");
+        sb.Append(Faction.ToString());
+        sb.Append("#");
 
-        //sb.Append(_cards.Count);
-        //sb.Append("|");
+        sb.Append(_cards.Count);
+        sb.Append("|");
 
-        //foreach (Card card in _cards)
-        //{
-        //    sb.Append(anonymize ? CardCodename.UNKNOWN : card.CardCodename);
-        //    sb.Append("|");
-        //    sb.Append(card.CardId);
-        //    sb.Append("|");
-        //}
+        foreach (Card card in _cards)
+        {
+            sb.Append(anonymize ? "tq": card.Name);
+            sb.Append("|");
+            sb.Append(card.ID.ToString());
+            sb.Append("|");
+        }
 
         return sb.ToString();
     }

@@ -15,6 +15,7 @@ public class CharacterCardsCfg
     public string title;    //		称号
     public int power;    //		力量
     public int insight;    //		洞察
+    public int physique;    //		体质
     public int determination;    //		意志
     public int hp;    //		生命
     public int reason;    //		理性
@@ -27,6 +28,7 @@ public class CharacterCardsCfg
         title = packet.PackReadString();
         power = packet.PackReadInt32();
         insight = packet.PackReadInt32();
+        physique = packet.PackReadInt32();
         determination = packet.PackReadInt32();
         hp = packet.PackReadInt32();
         reason = packet.PackReadInt32();

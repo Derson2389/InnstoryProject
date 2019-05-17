@@ -8,7 +8,8 @@ public class GameViewController : MonoBehaviour {
 
     private Queue<Transform> _cardPlaceholders;
 
-    public CardManager CardMgr;
+    ///public CardManager CardMgr;
+    
     public Transform MissilePrefab;
 
     public Transform TargetSelector;
@@ -52,6 +53,8 @@ public class GameViewController : MonoBehaviour {
     {
         _transformById = new Dictionary<string, Transform>();
         _cardPlaceholders = new Queue<Transform>();
+        CardManager.instance.Init();
+        
     }
 
     internal void EnterTargetingMode()
@@ -70,17 +73,6 @@ public class GameViewController : MonoBehaviour {
         Transform constructionArea = (belongsToPlayer ? PlayerConstructionAreaGUI : OpponentConstructionAreaGUI);
         homeworldTransform.SetParent(constructionArea);
     }
-
-
-    //public void AddHomeworld(Homeworld homeworld, bool belongsToPlayer)
-    //{
-    //    // instantiate
-    //    Transform homeworldTransform = InstantiateCardPrefab(homeworld, belongsToPlayer);
-
-    //    // position 
-    //    Transform constructionArea = (belongsToPlayer ? PlayerConstructionAreaGUI : OpponentConstructionAreaGUI);
-    //    homeworldTransform.SetParent(constructionArea);
-    //}
 
     public void DestroyCardTransform(Card card)
     {
@@ -304,7 +296,7 @@ public class GameViewController : MonoBehaviour {
 
     private Transform InstantiateCardPrefab(Card card, bool belongsToPlayer)
     {
-        Transform cardPrefab = CardMgr.CreateCardPrefab(card, "prefabName" , belongsToPlayer);
+        Transform cardPrefab = CardManager.instance.CreateCardPrefab(card, "prefabName" , belongsToPlayer);
 
         // store in lookup so we can find it by its id
         _transformById[card.ID.ToString()] = cardPrefab;
