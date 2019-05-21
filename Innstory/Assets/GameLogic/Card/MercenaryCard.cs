@@ -18,5 +18,6 @@ public class MercenaryCard : Card
         this.EffectEventName = cfg.activeEffect;
         this.Effectdesc = cfg.effectdesc;
         this.descInfo = cfg.descriptipon;
+        this.prefabPath = cfg.prefabPath;
     }
 }

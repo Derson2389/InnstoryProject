@@ -16,6 +16,7 @@ public class ItemCardsCfg
     public string activeEffect;    //		激活效果
     public int Durability;    //		耐久
     public string description;    //		卡牌说明
+    public string prefabPath;    //		预制体
 
     public void Deserialize (DynamicPacket packet)
     {
@@ -25,6 +26,7 @@ public class ItemCardsCfg
         activeEffect = packet.PackReadString();
         Durability = packet.PackReadInt32();
         description = packet.PackReadString();
+        prefabPath = packet.PackReadString();
     }
 }
 

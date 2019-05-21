@@ -28,6 +28,6 @@ public class CounterCard : Card
         this.SignID = cfg.signID;
         this.SignTxt = cfg.signTxt;
         this.OriginalNumb = cfg.orginalNum;
-
+        this.prefabPath = cfg.prefabPath;
     }
 }

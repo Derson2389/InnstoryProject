@@ -228,7 +228,7 @@ public class GameViewController : MonoBehaviour {
     //    Transform weaponTransform = weaponPanel.GetChild(weaponIndex);
     //    WeaponHandler handler = weaponTransform.GetComponent<WeaponHandler>();
     //    handler.SetOpponentTarget((Card)target);
-         
+
     //}
 
     //public void UpdateConstructionRemaining(Ship ship)
@@ -239,27 +239,33 @@ public class GameViewController : MonoBehaviour {
     //    constructionRemaining.text = ship.ConstructionRemaining.ToString();
     //}
 
-    //public void AddCardToHand(PlayableCard card, bool replacesUnknown)
-    //{
-    //    // instantiate the card prefab
-    //    Transform cardPrefab = InstantiateCardPrefab(card, true);
+    public void AddCardToHand(Card card, bool replacesUnknown)
+    {
+        // instantiate the card prefab
+        Transform cardPrefab = InstantiateCardPrefab(card, true);
 
-    //    // add it to the players hand area
-    //    cardPrefab.SetParent(PlayerHandGUI);
+        // add it to the players hand area
+        cardPrefab.SetParent(PlayerHandGUI);
 
-    //    if (replacesUnknown)
-    //    {
-    //        // remove the placeholder face down card
-    //        Destroy(_cardPlaceholders.Dequeue().gameObject);
-    //    }
-    //}
+        if (replacesUnknown)
+        {
+            // remove the placeholder face down card
+            Destroy(_cardPlaceholders.Dequeue().gameObject);
+        }
+    }
 
-    //public void AddUnknownCardToHand()
-    //{
-    //    var card = CardPrefabFactory.CreateCardPrefab(new UnknownCard(CardCodename.UNKNOWN), true);
-    //    card.SetParent(PlayerHandGUI);
-    //    _cardPlaceholders.Enqueue(card);
-    //}
+    public void AddMissionCardToHand()
+    {
+
+    }
+
+
+    public void AddUnknownCardToHand()
+    {
+        var  cardPrefab = CardManager.instance.CreateCardPrefab(null, "Prefab/1", true);
+        cardPrefab.SetParent(PlayerHandGUI);
+        _cardPlaceholders.Enqueue(cardPrefab);
+    }
 
     //public void DeployShip(Ship ship, bool belongsToPlayer)
     //{
@@ -296,7 +302,7 @@ public class GameViewController : MonoBehaviour {
 
     private Transform InstantiateCardPrefab(Card card, bool belongsToPlayer)
     {
-        Transform cardPrefab = CardManager.instance.CreateCardPrefab(card, "prefabName" , belongsToPlayer);
+        Transform cardPrefab = CardManager.instance.CreateCardPrefab(card, card.prefabPath, belongsToPlayer);
 
         // store in lookup so we can find it by its id
         _transformById[card.ID.ToString()] = cardPrefab;

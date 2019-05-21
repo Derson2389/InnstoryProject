@@ -570,15 +570,16 @@ public class GameServerController : NetworkBehaviour {
         player.DrawStartingHand();
 
         //// send starting hand
-        //for (int i = 0; i < player.Hand.Count; i++)
-        //{
-        //    var cardMsg = new MessageTypes.DrawnCardMessage();
-        //    var card = player.Hand[i];
-        //    ServerLog(string.Format("{0} card{1}:{2}", player.Name, i, card.CardName), game);
-        //    cardMsg.CardCodename = card.CardCodename.ToString();
-        //    cardMsg.cardId = card.CardId;
-        //    NetworkServer.SendToClient(player.ConnectionId, (short)MessageTypes.MessageType.DRAWN_CARD, cardMsg);
-        //}
+        for (int i = 0; i < player.Hand.Count; i++)
+        {
+            var cardMsg = new MessageTypes.DrawnCardMessage();
+            var card = player.Hand[i];
+            ServerLog(string.Format("{0} card{1}:{2}", player.Name, i, card.Name), game);
+            cardMsg.CardCodename = card.Name.ToString();
+            cardMsg.cardId = card.ID.ToString();
+            cardMsg.CardType = card.cardType.ToString();
+            NetworkServer.SendToClient(player.ConnectionId, (short)MessageTypes.MessageType.DRAWN_CARD, cardMsg);
+        }
     }
 
     private void SendStartingState(Game game)

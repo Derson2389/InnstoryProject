@@ -31,5 +31,6 @@ public class MissionCard : Card
         this.CardConditon = cfg.cardConditon;
         this.CardEffect = cfg.cardEffect;
         this.EffectEventName = cfg.cardEffect;
+        this.prefabPath = cfg.prefabPath;
     }
 }

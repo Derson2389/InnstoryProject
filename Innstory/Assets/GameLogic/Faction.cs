@@ -35,7 +35,7 @@ public class Faction {
         int numMissionCards = int.Parse(data[6]);
         for (int i = 0; i < numMissionCards; i++)
         {
-            MissionCard missionCard = (MissionCard)CardManager.instance.GetCardByType((CardType)Enum.Parse(typeof(CardType), data[7 + (i * 2)]), int.Parse(data[8 + (i * 2)]));
+            MissionCard missionCard = (MissionCard)CardManager.instance.GetCardByType((CardType)Enum.Parse(typeof(CardType), data[7 + (i * 3)]), int.Parse(data[8 + (i * 3)]));
             MissionCards.Add(missionCard);
         }
     }
@@ -52,7 +52,7 @@ public class Faction {
         sb.Append("|");
         sb.Append(ClicksPerTurn);
         sb.Append("|");
-        sb.Append(Character.Name);
+        sb.Append(Character.cardType);
         sb.Append("|");
         sb.Append(Character.ID);
         sb.Append("|");
@@ -61,9 +61,11 @@ public class Faction {
 
         foreach (var mCard in MissionCards)
         {
-            sb.Append(mCard.Name);
+            sb.Append(mCard.cardType);
             sb.Append("|");
             sb.Append(mCard.ID);
+            sb.Append("|");
+            sb.Append(mCard.Name);
             sb.Append("|"); 
         }
 

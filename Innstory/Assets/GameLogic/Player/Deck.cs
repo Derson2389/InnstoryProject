@@ -16,20 +16,17 @@ public class Deck {
         // temp hard coded deck
         CharacterCard charCard = (CharacterCard)CardManager.instance.GetCardByType(CardType.CharacterCard, 1);
         List<MissionCard> dummyMissionCard = new List<MissionCard>();
-        Faction = new Faction("DefaultFaction", 8, 100, 10, dummyMissionCard, charCard);
-
-        //List<Shipyard> shipyards = new List<Shipyard>();
-        //shipyards.Add((Shipyard)CardFactory.CreateCard(CardCodename.SHIPYARD));
-        //shipyards.Add((Shipyard)CardFactory.CreateCard(CardCodename.SMALL_SHIPYARD));
-        //Faction = new Faction("DefaultFaction", 8, 100, 10, shipyards, CharacterCard);
-        //AddCard(CardCodename.FRIGATE, 4);
-        //AddCard(CardCodename.CRUISER, 4);
-        //AddCard(CardCodename.BATTLESHIP, 4);
-        ////AddCard(CardCodename.SHIPYARD, 4);
-        //AddCard(CardCodename.SMALL_SHIPYARD, 4);
-        //AddCard(CardCodename.SHORT_TERM_INVESTMENT, 4);
-        //AddCard(CardCodename.LONG_TERM_INVESTMENT, 4);
-        //AddCard(CardCodename.EFFICIENCY_DRIVE, 4);
+        Faction = new Faction("DefaultFaction",6, 100, 10, dummyMissionCard, charCard);
+        dummyMissionCard.Add((MissionCard)CardManager.instance.GetCardByType(CardType.MissionCard, 2));
+        dummyMissionCard.Add((MissionCard)CardManager.instance.GetCardByType(CardType.MissionCard, 4));
+        dummyMissionCard.Add((MissionCard)CardManager.instance.GetCardByType(CardType.MissionCard, 6));
+        dummyMissionCard.Add((MissionCard)CardManager.instance.GetCardByType(CardType.MissionCard, 8));
+        dummyMissionCard.Add((MissionCard)CardManager.instance.GetCardByType(CardType.MissionCard, 10));
+        dummyMissionCard.Add((MissionCard)CardManager.instance.GetCardByType(CardType.MissionCard, 12));
+        for (int i = 0; i < dummyMissionCard.Count; i++)
+        {
+            AddCard(dummyMissionCard[i]);
+        }
     }
 
     public int GetCount()
@@ -96,7 +93,7 @@ public class Deck {
 
         foreach (Card card in _cards)
         {
-            sb.Append(anonymize ? "tq": card.Name);
+            sb.Append(anonymize ? "BBB": card.Name);
             sb.Append("|");
             sb.Append(card.ID.ToString());
             sb.Append("|");

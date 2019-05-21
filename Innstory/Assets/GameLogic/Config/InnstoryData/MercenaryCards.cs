@@ -15,6 +15,7 @@ public class MercenaryCardsCfg
     public string effectdesc;    //		效果说明
     public string activeEffect;    //		激活效果
     public string descriptipon;    //		说明
+    public string prefabPath;    //		预制体
 
     public void Deserialize (DynamicPacket packet)
     {
@@ -23,6 +24,7 @@ public class MercenaryCardsCfg
         effectdesc = packet.PackReadString();
         activeEffect = packet.PackReadString();
         descriptipon = packet.PackReadString();
+        prefabPath = packet.PackReadString();
     }
 }
 

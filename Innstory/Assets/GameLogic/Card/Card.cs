@@ -62,6 +62,9 @@ public abstract class Card {
         set { EffectEventName = value; }
     }
 
+    public string prefabPath = string.Empty;
+
+
     protected GameObject targetObject = null;
 
     //If the card is in the graveyard or not

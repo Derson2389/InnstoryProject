@@ -15,6 +15,7 @@ public class SkillCardsCfg
     public string cardEffect;    //		效果
     public string activeEffect;    //		激活效果
     public string description;    //		说明
+    public string prefabPath;    //		预制体
 
     public void Deserialize (DynamicPacket packet)
     {
@@ -23,6 +24,7 @@ public class SkillCardsCfg
         cardEffect = packet.PackReadString();
         activeEffect = packet.PackReadString();
         description = packet.PackReadString();
+        prefabPath = packet.PackReadString();
     }
 }
 

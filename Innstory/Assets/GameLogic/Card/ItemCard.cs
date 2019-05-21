@@ -25,6 +25,7 @@ public class ItemCard : Card
         this.descInfo = cfg.description;
         this.cardEffect = cfg.cardEffect;
         this.activeEffect = cfg.activeEffect;
+        this.prefabPath = cfg.prefabPath;
 
     }
 }

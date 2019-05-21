@@ -16,6 +16,7 @@ public class CounterCardsCfg
     public string signTxt;    //		符号
     public int signID;    //		符号ID
     public int orginalNum;    //		卡牌数量
+    public string prefabPath;    //		预制体
 
     public void Deserialize (DynamicPacket packet)
     {
@@ -25,6 +26,7 @@ public class CounterCardsCfg
         signTxt = packet.PackReadString();
         signID = packet.PackReadInt32();
         orginalNum = packet.PackReadInt32();
+        prefabPath = packet.PackReadString();
     }
 }
 

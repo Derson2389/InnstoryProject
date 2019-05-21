@@ -20,6 +20,7 @@ public class CharacterCardsCfg
     public int hp;    //		生命
     public int reason;    //		理性
     public int lucky;    //		幸运
+    public string prefabPath;    //		预制体
 
     public void Deserialize (DynamicPacket packet)
     {
@@ -33,6 +34,7 @@ public class CharacterCardsCfg
         hp = packet.PackReadInt32();
         reason = packet.PackReadInt32();
         lucky = packet.PackReadInt32();
+        prefabPath = packet.PackReadString();
     }
 }
 

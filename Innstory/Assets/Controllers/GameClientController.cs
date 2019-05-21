@@ -451,16 +451,17 @@ public class GameClientController : NetworkBehaviour {
     private void OnDrawnCardMessage(NetworkMessage netMsg)
     {
         var msg = netMsg.ReadMessage<MessageTypes.DrawnCardMessage>();
-        var cardCodenameData = msg.CardCodename;
         string cardId = msg.cardId;
-        Debug.Log(String.Format("Card drawn: {0}({1})", cardCodenameData, cardId));
+        string cardType = msg.CardType;
+        string cardName = msg.CardCodename;
+        Debug.Log(String.Format("Card drawn: {0}({1})", cardType, cardId));
 
         //// add to local version of game state 
-        //CardCodename cardCodename = (CardCodename)Enum.Parse(typeof(CardCodename), cardCodenameData);
-        //PlayableCard card = (PlayableCard)CardFactory.CreateCard(cardCodename, cardId);
-        //_game.Player.Hand.Add(card);
+        CardType cardTypeName = (CardType)Enum.Parse(typeof(CardType), cardType);
+        Card card = (Card)CardManager.instance.GetCardByType(cardTypeName, int.Parse(cardId));
+        _game.Player.Hand.Add(card);
 
-        //GameViewController.AddCardToHand(card, true);
+        GameViewController.AddCardToHand(card, true);
 
         // update player state gui
         UpdatePlayerStateGUI();
@@ -507,7 +508,7 @@ public class GameClientController : NetworkBehaviour {
         for (int i = 0; i < LobbyController.LocalPlayer.Deck.Faction.StartingHandSize; i++)
         {
             Debug.Log("Adding fake card to hand");
-            ///GameViewController.AddUnknownCardToHand();
+            GameViewController.AddUnknownCardToHand();
         }
     }
 

@@ -16,7 +16,9 @@ public class MissionCardsCfg
     public int counterCardNum;    //		诡计卡数目
     public int skillCardNum;    //		技能卡数目
     public string cardConditon;    //		达成条件
+    public string cardConditonDesc;    //		达成条件
     public string cardEffect;    //		达成效果
+    public string prefabPath;    //		预制体
 
     public void Deserialize (DynamicPacket packet)
     {
@@ -26,7 +28,9 @@ public class MissionCardsCfg
         counterCardNum = packet.PackReadInt32();
         skillCardNum = packet.PackReadInt32();
         cardConditon = packet.PackReadString();
+        cardConditonDesc = packet.PackReadString();
         cardEffect = packet.PackReadString();
+        prefabPath = packet.PackReadString();
     }
 }
 

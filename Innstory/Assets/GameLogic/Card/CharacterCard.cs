@@ -44,6 +44,7 @@ public class CharacterCard : Card , IDamageable{
         this.constitution = cfg.physique;
         this.MaxHealth = cfg.hp;
         this.Power = cfg.power;
+        this.prefabPath = cfg.prefabPath;
 
     }
 

@@ -36,7 +36,7 @@ public class MessageTypes
     public class StartGameMessage : MessageBase     { public string opponentName; }
     public class PlayerReadyMessage : MessageBase   {  }
     public class SetupGameMessage : MessageBase     {  }
-    public class DrawnCardMessage : MessageBase     { public string CardCodename; public string cardId; } 
+    public class DrawnCardMessage : MessageBase     { public string CardCodename; public string cardId; public string CardType; } 
     public class ActionsMessage : MessageBase       { public string actionData; }
     public class GameLogMessage : MessageBase       { public string message; }
     public class DeckFirstMessage : MessageBase     { public string deckDataFragment; }

@@ -20,5 +20,6 @@ public class SkillCard : Card
         this.cardEffect = cfg.cardEffect;
         this.activeEffect = cfg.activeEffect;
         this.descInfo = cfg.description;
+        this.prefabPath = cfg.prefabPath;
     }
 }
