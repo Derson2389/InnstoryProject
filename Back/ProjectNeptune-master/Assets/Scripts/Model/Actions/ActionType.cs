@@ -1,0 +1,12 @@
+﻿public enum ActionType
+{
+    CLICK_FOR_CREDIT,
+    CLICK_FOR_CARD,
+    HOST_SHIP,
+    ADVANCE_CONSTRUCTION,
+    DEPLOY_SHIP,
+    SHIPYARD,
+    OPERATION,
+    STRATEGY,
+    WEAPON_TARGET
+}
