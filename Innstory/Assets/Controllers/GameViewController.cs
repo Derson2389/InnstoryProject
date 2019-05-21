@@ -277,11 +277,22 @@ public class GameViewController : MonoBehaviour {
     //    RemoveConstructionPanel(ship);
     //}
 
-    //public void RemoveConstructionPanel(Ship ship)
-    //{
-    //    Transform shipTransform = FindCardTransformById(ship.CardId);
-    //    Destroy(shipTransform.Find("ConstructionPanel").gameObject);
-    //}
+    public void DeployCard(Card card, bool belongsToPlayer)
+    {
+        Transform Area = (belongsToPlayer ? PlayerShipAreaGUI : OpponentShipAreaGUI);
+
+        Transform _Transform = FindCardTransformById(card.ID.ToString());        
+        _Transform.SetParent(Area);
+
+       RemoveConstructionPanel(card);
+    }
+
+
+    public void RemoveConstructionPanel(Card _card)
+    {
+        Transform consTransform = FindCardTransformById(_card.ID.ToString());
+        Destroy(consTransform.Find("ConstructionPanel").gameObject);
+    }
 
     public void RemoveDeadCard(Card card)
     {
