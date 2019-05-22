@@ -504,11 +504,19 @@ public class GameClientController : NetworkBehaviour {
         var createGameButton = (Button)GameObject.Find("ReadyButton").GetComponent(typeof(Button));
         createGameButton.interactable = false;
 
-        // create placeholder card objects        
-        for (int i = 0; i < LobbyController.LocalPlayer.Deck.Faction.StartingHandSize; i++)
+        //// create placeholder card objects        
+        //for (int i = 0; i < LobbyController.LocalPlayer.Deck.Faction.StartingHandSize; i++)
+        //{
+        //    Debug.Log("Adding fake card to hand");
+        //    GameViewController.AddUnknownCardToHand();
+        //}
+
+        //create mission card
+        for (int i = 0; i < LobbyController.LocalPlayer.Deck.Faction.MissionCards.Count; i++)
         {
             Debug.Log("Adding fake card to hand");
-            GameViewController.AddUnknownCardToHand();
+            var missionCard = LobbyController.LocalPlayer.Deck.Faction.MissionCards[i];
+            GameViewController.AddMissionCardToHand(missionCard);
         }
     }
 

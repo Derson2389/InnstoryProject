@@ -75,7 +75,7 @@ namespace test
                     {
                         if (hit.transform.CompareTag("Field"))
                         {
-                            Debug.Log("소환 : " + Data.Name);
+                            Debug.Log("召回: " + Data.Name);
                             CanMove = false;
                             GameObject temp = (GameObject)Instantiate(gameObject, StartPoint, transform.rotation, transform.parent);
                             temp.GetComponent<Image>().color = new Color(0, 0, 0, 255);

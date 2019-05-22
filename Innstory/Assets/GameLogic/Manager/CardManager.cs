@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Innstory;
 using Object = UnityEngine.Object;
+using UnityEngine.UI;
 
 public class CardManager : Singleton<CardManager>
 {
@@ -139,6 +140,17 @@ public class CardManager : Singleton<CardManager>
     {
         GameObject go = (GameObject)Resources.Load(prefabName);
         Transform transform = Object.Instantiate(go.transform);
+
+        // link the prefab to its "model" card
+        var cardLink = transform.GetComponent<CardBehaviour>();
+        cardLink.Card = card;
+
+        var name = (Text)transform.Find("Name").GetComponent(typeof(Text));
+        name.text = card.Name;
+
+        var cardText = (Text)transform.Find("CardText").GetComponent(typeof(Text));
+        cardText.text = card.descInfo;
+
 
         return transform;
 

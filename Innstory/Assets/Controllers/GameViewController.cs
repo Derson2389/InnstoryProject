@@ -254,9 +254,11 @@ public class GameViewController : MonoBehaviour {
         }
     }
 
-    public void AddMissionCardToHand()
+    public void AddMissionCardToHand(Card _card)
     {
-
+        var cardPrefab = CardManager.instance.CreateCardPrefab(_card, _card.prefabPath, true);
+        cardPrefab.SetParent(PlayerHandGUI);
+        _cardPlaceholders.Enqueue(cardPrefab);
     }
 
 
