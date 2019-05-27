@@ -138,6 +138,8 @@ public class CardManager : Singleton<CardManager>
 
     public Transform CreateCardPrefab(Card card, String prefabName, bool belongsToPlayer)
     {
+
+        ///Debug.LogError("Card Prefab :" + prefabName);
         GameObject go = (GameObject)Resources.Load(prefabName);
         Transform transform = Object.Instantiate(go.transform);
 

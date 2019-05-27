@@ -117,39 +117,15 @@ public class GameServerController : NetworkBehaviour {
             {
                 game.StartLaserWeaponResolutionPhase();
 
-                LaunchMissiles(game);
+
                 ProcessLaserWeapons(game);
             }
         }
     }
 
-    private void LaunchMissiles(Game game)
-    {
-        LaunchMissilesForPlayer(game, game.Player);
-        LaunchMissilesForPlayer(game, game.Opponent);
 
-    }
 
-    // TODO - communicate missile ids to players
-
-    private void LaunchMissilesForPlayer(Game game, Player player)
-    {
-        // run through each weapon for each of the players ships and if its a missile, fire it
-        //foreach (Ship ship in player.Ships)
-        //{
-        //    foreach (Weapon weapon in ship.Weapons)
-        //    {
-        //        if (weapon.WeaponType == WeaponType.MISSILE // is a missile
-        //            && weapon.Target != null)             // has a target                    
-        //        {
-        //            Missile missile = new Missile(weapon.Damage);
-        //            missile.SetTarget(weapon.Target);
-        //            weapon.ClearTarget();
-        //        }
-        //    }
-        //}
-    }
-
+  
     private void ProcessLaserWeapons(Game game)
     {
         // apply damage from all laser weapons

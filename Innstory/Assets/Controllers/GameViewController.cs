@@ -46,7 +46,13 @@ public class GameViewController : MonoBehaviour {
     public Transform PlayerShipAreaGUI;
     public Transform PlayerMissileAreaGUI;
     public Transform GamePhaseGUI;
-    
+
+    public Transform MissionAreaGUI;
+    public Transform CharacterAreaGUI;
+    public Transform OpponentMissionAreaGUI;
+    public Transform OpponentCharacterAreaGUI;
+
+
     public Dictionary<string, Transform> _transformById;
 
     void Start()
@@ -70,8 +76,8 @@ public class GameViewController : MonoBehaviour {
         Transform homeworldTransform = InstantiateCardPrefab(characterCard, belongsToPlayer);
 
         // position 
-        Transform constructionArea = (belongsToPlayer ? PlayerConstructionAreaGUI : OpponentConstructionAreaGUI);
-        homeworldTransform.SetParent(constructionArea);
+        Transform characterArea = (belongsToPlayer ? CharacterAreaGUI : OpponentCharacterAreaGUI);
+        homeworldTransform.SetParent(characterArea);
     }
 
     public void DestroyCardTransform(Card card)

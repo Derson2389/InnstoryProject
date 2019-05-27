@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Game  {
+public class Game {
 
     // NOTE - only the server sees this comprehansive version of the game state - the players view of the game is held in GameClientController
 
     public int GameNumber { get; private set; }
-    public Player Player { get; private set; } 
+    public Player Player { get; private set; }
     public Player Opponent { get; private set; }
     public GamePhase GamePhase { get; private set; }
     public int GameTurn { get; private set; }
@@ -17,7 +17,7 @@ public class Game  {
 
     private bool _hostReady;
     private bool _challengerReady;
-    
+
     public Game(int gameNumber, Player player)
     {
         GameNumber = gameNumber;
@@ -46,7 +46,7 @@ public class Game  {
     {
         _challengerReady = true;
     }
-    
+
     public bool BothPlayersReady()
     {
         return _hostReady && _challengerReady;
@@ -122,6 +122,13 @@ public class Game  {
     {
         return HostActionData != "NONE" && ChallengerActionData != "NONE";
     }
+
+    public bool BothMissionCardReady()
+    {
+
+        return false;
+    }
+
 
     public Player GetOpponent(Player player)
     {
