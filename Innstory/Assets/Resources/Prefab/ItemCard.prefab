@@ -482,6 +482,9 @@ GameObject:
   - component: {fileID: 11419846}
   - component: {fileID: 11449552}
   - component: {fileID: 22503846}
+  - component: {fileID: 1091650983385038936}
+  - component: {fileID: 3091173261669612507}
+  - component: {fileID: 6201175293809292934}
   m_Layer: 5
   m_Name: ItemCard
   m_TagString: Untagged
@@ -584,6 +587,44 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1091650983385038936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63ca117b64da02c46ab09e7bb23f022d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3091173261669612507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d87c750f35275f4ba14f2e77e8de802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6201175293809292934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a4880882e2dfba47a2cffd4ca1edf46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentToReturnTo: {fileID: 0}
+  returnToParent: 0
 --- !u!1 &193398
 GameObject:
   m_ObjectHideFlags: 0

@@ -414,7 +414,7 @@ public class GameClientController : NetworkBehaviour {
         _game.Opponent.DrawStartingHand();
         SetupInitialGameView();
         
-        GameViewController.HideDeckSelectDialog();
+        ///GameViewController.HideDeckSelectDialog();
         WriteGameTurnToLog();
         GameViewController.EnableDisableControls(_game.GamePhase, true, _game.IsAwaitingOpponent());
     }

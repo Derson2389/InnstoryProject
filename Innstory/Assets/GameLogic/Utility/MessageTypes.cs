@@ -21,7 +21,10 @@ public class MessageTypes
         ACTIONS = 2003,         // C <-> S to submit actions for the turn (then server transmits to opponent to update local state)
         GAME_LOG = 2004,        // S -> C to send details of game actions to display 
         DECK_FIRST = 2005,      // C <-> S probably a clumsy way to handle this, but deck too large to send in one go so we send these chunks
-        DECK_FRAGMENT = 2006    //          first one tells to start storing it, the rest are appended, then some other message will use the full data
+        DECK_FRAGMENT = 2006,    //          first one tells to start storing it, the rest are appended, then some other message will use the full data
+
+        C2S_MISSION_CARD_READY = 2007, //客户端到服务器
+        S2C_MISSION_SETTLEMENT = 2008, //结算任务卡抽卡
     }
 
     public class ChatMessage : MessageBase          { public string message; }
