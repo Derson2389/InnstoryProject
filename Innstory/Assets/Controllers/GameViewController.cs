@@ -19,6 +19,7 @@ public class GameViewController : MonoBehaviour {
     public Transform GameLogContent;
     public Transform GameLog;
     public Transform DeckSelectDialog;
+    public Text DeckShowText;
 
     // controls which need to be activated/deactivated depending on state
     public Transform ClickForCreditsButton;
@@ -113,6 +114,22 @@ public class GameViewController : MonoBehaviour {
     //    shipyardTransform.SetParent(constructionArea);        
     //}
 
+    public void hostMissionCard(MissionCard _card, bool belongsToPlayer)
+    {
+        Transform missionTrans;
+        if (belongsToPlayer)
+        {
+            missionTrans = _transformById[_card.ID.ToString()];
+        }
+        else
+        {
+            missionTrans = CardManager.instance.CreateCardPrefab(_card, _card.prefabPath, false);
+        }
+
+
+    }
+
+
     //public void HostShip(Ship ship, Shipyard shipyard, bool belongsToPlayer)
     //{
     //    Transform shipTransform;
@@ -150,16 +167,7 @@ public class GameViewController : MonoBehaviour {
     //    shipTransform.localPosition = new Vector3(15, 15, 0);
     //}
 
-    //public void SpawnMissile(Missile missile, bool belongsToPlayer)
-    //{
-    //    var missileTransform = Instantiate(MissilePrefab);
-    //    MissileHandler handler = missileTransform.GetComponent<MissileHandler>();
-    //    handler.SetTarget((Card)missile.Target);
-
-    //    var area = (belongsToPlayer ? PlayerMissileAreaGUI : OpponentMissileAreaGUI);
-    //    missileTransform.SetParent(area);
-    //}
-
+  
     public void UpdateGamePhase(GamePhase gamePhase)
     {
         SetText(GamePhaseGUI, gamePhase.ToString().Replace('_', ' '));
@@ -179,6 +187,11 @@ public class GameViewController : MonoBehaviour {
     public void SetOpponentName(string name)
     {
         SetText(OpponentNameGUI, name);
+    }
+
+    public void SetDeckDialogText(string txt)
+    {
+        DeckShowText.text = txt;
     }
 
     public void HideDeckSelectDialog()
@@ -218,32 +231,11 @@ public class GameViewController : MonoBehaviour {
         //}
     }
 
-    //public void ClearWeaponTarget(Ship ship, int weaponIndex)
-    //{
-    //    Transform shipTransform = FindCardTransformById(ship.CardId);
-    //    Transform weaponPanel = shipTransform.Find("WeaponsPanel");
-    //    Transform weaponTransform = weaponPanel.GetChild(weaponIndex);
-    //    WeaponHandler handler = weaponTransform.GetComponent<WeaponHandler>();
-    //    handler.ClearTarget();
-    //}
 
-    //public void SetWeaponTarget(Ship ship, int weaponIndex, IDamageable target)
-    //{
-    //    Transform shipTransform = FindCardTransformById(ship.CardId);
-    //    Transform weaponPanel = shipTransform.Find("WeaponsPanel");
-    //    Transform weaponTransform = weaponPanel.GetChild(weaponIndex);
-    //    WeaponHandler handler = weaponTransform.GetComponent<WeaponHandler>();
-    //    handler.SetOpponentTarget((Card)target);
 
-    //}
 
-    //public void UpdateConstructionRemaining(Ship ship)
-    //{
-    //    Transform shipTransform = FindCardTransformById(ship.CardId);
-    //    Transform constructionRemainingT = shipTransform.Find("ConstructionPanel/ConstructionRemaining");
-    //    Text constructionRemaining = (Text)constructionRemainingT.GetComponent(typeof(Text));
-    //    constructionRemaining.text = ship.ConstructionRemaining.ToString();
-    //}
+
+
 
     public void AddCardToHand(Card card, bool replacesUnknown)
     {
@@ -267,7 +259,6 @@ public class GameViewController : MonoBehaviour {
         _cardPlaceholders.Enqueue(cardPrefab);
     }
 
-
     public void AddUnknownCardToHand()
     {
         var  cardPrefab = CardManager.instance.CreateCardPrefab(null, "Prefab/1", true);
@@ -275,15 +266,6 @@ public class GameViewController : MonoBehaviour {
         _cardPlaceholders.Enqueue(cardPrefab);
     }
 
-    //public void DeployShip(Ship ship, bool belongsToPlayer)
-    //{
-    //    Transform shipArea = (belongsToPlayer ? PlayerShipAreaGUI : OpponentShipAreaGUI);
-
-    //    Transform shipTransform = FindCardTransformById(ship.CardId);        
-    //    shipTransform.SetParent(shipArea);
-
-    //    RemoveConstructionPanel(ship);
-    //}
 
     public void DeployCard(Card card, bool belongsToPlayer)
     {

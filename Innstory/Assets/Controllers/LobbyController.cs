@@ -484,7 +484,10 @@ public class LobbyController : NetworkBehaviour {
             Camera.main.transform.position.x,
             Camera.main.transform.position.y, 
             0);
-        DeckSelectDialog.gameObject.SetActive(false);
+        DeckSelectDialog.gameObject.SetActive(!false);
+        
+
+        //NetworkManager.singleton.client.Send((short)MessageTypes.MessageType.PLAYER_READY, msg);
     }
 
     private void EnableDisableGameClientGUI(bool enable)

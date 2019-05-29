@@ -414,7 +414,7 @@ public class GameClientController : NetworkBehaviour {
         _game.Opponent.DrawStartingHand();
         SetupInitialGameView();
         
-        ///GameViewController.HideDeckSelectDialog();
+        GameViewController.HideDeckSelectDialog();
         WriteGameTurnToLog();
         GameViewController.EnableDisableControls(_game.GamePhase, true, _game.IsAwaitingOpponent());
     }
@@ -499,17 +499,11 @@ public class GameClientController : NetworkBehaviour {
         Debug.Log("Sending ready message");
         MessageTypes.PlayerReadyMessage msg = new MessageTypes.PlayerReadyMessage();
         NetworkManager.singleton.client.Send((short)MessageTypes.MessageType.PLAYER_READY, msg);
-        
+
+        GameViewController.SetDeckDialogText("等待对方准备。。。");
         // disable the button
         var createGameButton = (Button)GameObject.Find("ReadyButton").GetComponent(typeof(Button));
         createGameButton.interactable = false;
-
-        //// create placeholder card objects        
-        //for (int i = 0; i < LobbyController.LocalPlayer.Deck.Faction.StartingHandSize; i++)
-        //{
-        //    Debug.Log("Adding fake card to hand");
-        //    GameViewController.AddUnknownCardToHand();
-        //}
 
         //create mission card
         for (int i = 0; i < LobbyController.LocalPlayer.Deck.Faction.MissionCards.Count; i++)
@@ -545,7 +539,7 @@ public class GameClientController : NetworkBehaviour {
         GameViewController.AddGameLogMessage(string.Format("<b>You</b> click for a creidt"));
         ChangeClicks(-1);
     }
-    
+
     //public bool TryAdvanceConstruction(Ship ship, Shipyard shipyard)
     //{
     //    // cant advance if already complete
@@ -612,6 +606,31 @@ public class GameClientController : NetworkBehaviour {
 
     //    return true;
     //}
+
+    public bool TryPlaySkillCard(Card skillCard)
+    {
+
+        return true;
+    }
+
+    public bool TryHostMissionCard(MissionCard missionCard)
+    {
+        if (!_game.Player.MissionCardList.Contains(missionCard))
+        {
+            return false;
+        }
+
+        if (_game.Player.setMissioCard != null)
+        {
+            return false;
+        }
+        _game.Player.setMissioCard = missionCard;
+        _game.Player.Hand.Remove(missionCard);
+
+        GameViewController.hostMissionCard(missionCard, true);
+
+        return true;
+    }
 
     //public bool TryPlayOperation(Operation operation)
     //{
