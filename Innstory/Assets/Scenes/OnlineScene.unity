@@ -3168,6 +3168,7 @@ GameObject:
   - component: {fileID: 965147075}
   - component: {fileID: 965147074}
   - component: {fileID: 965147073}
+  - component: {fileID: 965147076}
   m_Layer: 5
   m_Name: MissionArea
   m_TagString: Untagged
@@ -3254,6 +3255,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 965147071}
   m_CullTransparentMesh: 0
+--- !u!114 &965147076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965147071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f5a04d729b5bfe40b89c4715d937d26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DropZoneType: 2
+  GameClientController: {fileID: 2138675709}
 --- !u!1 &1006445032
 GameObject:
   m_ObjectHideFlags: 0

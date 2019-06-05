@@ -18,6 +18,7 @@ public class GameServerController : NetworkBehaviour {
         NetworkServer.RegisterHandler((short)MessageTypes.MessageType.DECK_FIRST, OnDeckFirstMessage);
         NetworkServer.RegisterHandler((short)MessageTypes.MessageType.PLAYER_READY, OnPlayerReadyMessage);
         NetworkServer.RegisterHandler((short)MessageTypes.MessageType.ACTIONS, OnActionsMessage);
+        NetworkServer.RegisterHandler((short)MessageTypes.MessageType.C2S_MISSION_CARD_READY, OnPlayerMissionCardReady);
     }
 
     private void OnDeckFirstMessage(NetworkMessage netMsg)
@@ -493,6 +494,39 @@ public class GameServerController : NetworkBehaviour {
 
         ServerLog(string.Format("{0} clicks for a credit", player.Name), game);
     }
+
+    void OnPlayerMissionCardReady(NetworkMessage netMsg)
+    {
+        int connectionID = netMsg.conn.connectionId;
+        Player player = GetPlayerFromConnection(connectionID);
+        Game game = GetGameFromConnection(connectionID);
+
+        Deck deck = new Deck(player.DeckData);
+
+        if (game.Player == player)
+        {
+            game.Player.SetDeck(deck);
+            game.PlayerMissionReady();
+            ServerLog(string.Format("Player {0}  mission card is ready", game.Player.Name), game);
+        }
+
+        if (game.Opponent == player)
+        {
+            game.Opponent.SetDeck(deck);
+            game.OpponentMissionReady();
+            ServerLog(string.Format("Opponent {0} mission card is ready", game.Opponent.Name), game);
+        }
+
+        // if both players now ready, start the game proper
+        if (game.BothMissionReady())
+        {
+            ServerLog("双方选定了此轮的任务卡，开始结算抽卡", game);
+
+          
+        }
+
+    }
+
 
     void OnPlayerReadyMessage(NetworkMessage netMsg)
     {

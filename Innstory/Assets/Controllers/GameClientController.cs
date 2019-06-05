@@ -501,9 +501,10 @@ public class GameClientController : NetworkBehaviour {
         NetworkManager.singleton.client.Send((short)MessageTypes.MessageType.PLAYER_READY, msg);
 
         GameViewController.SetDeckDialogText("等待对方准备。。。");
+        GameViewController.HideDeckSelectDialog();
         // disable the button
-        var createGameButton = (Button)GameObject.Find("ReadyButton").GetComponent(typeof(Button));
-        createGameButton.interactable = false;
+        //var createGameButton = (Button)GameObject.Find("ReadyButton").GetComponent(typeof(Button));
+        //createGameButton.interactable = false;
 
         //create mission card
         for (int i = 0; i < LobbyController.LocalPlayer.Deck.Faction.MissionCards.Count; i++)
@@ -616,6 +617,10 @@ public class GameClientController : NetworkBehaviour {
     public bool TryHostMissionCard(MissionCard missionCard)
     {
         if (!_game.Player.MissionCardList.Contains(missionCard))
+        {
+            return false;
+        }
+        if (!(_game.GamePhase == GamePhase.ChooseMissionCard))
         {
             return false;
         }

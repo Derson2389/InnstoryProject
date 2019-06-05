@@ -14,7 +14,7 @@ public class Deck {
         _cards = new List<Card>();
 
         // temp hard coded deck
-        CharacterCard charCard = (CharacterCard)CardManager.instance.GetCardByType(CardType.CharacterCard, 1);
+        CharacterCard charCard = (CharacterCard)CardManager.instance.GetCardByType(CardType.CharacterCard, 2);
         List<MissionCard> dummyMissionCard = new List<MissionCard>();
         Faction = new Faction("DefaultFaction",6, 100, 10, dummyMissionCard, charCard);
         dummyMissionCard.Add((MissionCard)CardManager.instance.GetCardByType(CardType.MissionCard, 2));

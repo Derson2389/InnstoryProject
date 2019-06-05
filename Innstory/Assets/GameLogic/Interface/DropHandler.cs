@@ -35,7 +35,7 @@ public class DropHandler : MonoBehaviour, IDropHandler, IPointerEnterHandler, IP
 
                 if (card.cardType == CardType.MissionCard && DropZoneType == DropZoneType.MissionCardZone)
                 {
-                    Card missionCard = (Card)GetComponent<CardBehaviour>().Card;
+                    Card missionCard = card;
 
                     if (GameClientController.TryHostMissionCard((MissionCard)missionCard))
                     {

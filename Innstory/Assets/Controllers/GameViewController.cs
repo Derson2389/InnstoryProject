@@ -126,6 +126,11 @@ public class GameViewController : MonoBehaviour {
             missionTrans = CardManager.instance.CreateCardPrefab(_card, _card.prefabPath, false);
         }
 
+        Transform MissionArea = (belongsToPlayer ? MissionAreaGUI : OpponentMissionAreaGUI);
+        missionTrans.SetParent(MissionArea);
+        DeckSelectDialog.gameObject.SetActive(true);
+        SetDeckBtnVisible(false);
+        SetDeckDialogText("等待对方玩家选择任务卡");
 
     }
 
@@ -192,6 +197,11 @@ public class GameViewController : MonoBehaviour {
     public void SetDeckDialogText(string txt)
     {
         DeckShowText.text = txt;
+    }
+
+    public void SetDeckBtnVisible(bool _visible)
+    {
+        DeckSelectDialog.Find("ReadyButton").gameObject.SetActive(_visible);
     }
 
     public void HideDeckSelectDialog()

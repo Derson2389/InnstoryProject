@@ -18,6 +18,9 @@ public class Game {
     private bool _hostReady;
     private bool _challengerReady;
 
+    private bool _missionHostCardReady;
+    private bool _missionChallengerReady;
+
     public Game(int gameNumber, Player player)
     {
         GameNumber = gameNumber;
@@ -35,6 +38,21 @@ public class Game {
         GamePhase = GamePhase.SETUP;
 
         return true;
+    }
+
+    public void PlayerMissionReady()
+    {
+        _missionHostCardReady = true;
+    }
+
+    public void OpponentMissionReady()
+    {
+        _missionChallengerReady = true;
+    }
+
+    public bool BothMissionReady()
+    {
+        return _missionHostCardReady && _missionChallengerReady;
     }
 
     public void PlayerReady()
@@ -65,7 +83,7 @@ public class Game {
     public void StartNewTurn()
     {
         GameTurn++;
-        StartLogisticsPlanningPhase();
+        LogisticsChooseMissionCardPhase();       
     }
 
     public void AwaitOpponent()
@@ -76,6 +94,16 @@ public class Game {
     public bool IsAwaitingOpponent()
     {
         return _waitingForOpponent;
+    }
+
+    public void LogisticsChooseMissionCardPhase()
+    {
+        ChangeGamePhase(GamePhase.ChooseMissionCard);
+    }
+
+    public void LogisticsMissionCardCacultePhase()
+    {
+        ChangeGamePhase(GamePhase.MissionCardCaculte);
     }
 
     public void StartLogisticsPlanningPhase()
