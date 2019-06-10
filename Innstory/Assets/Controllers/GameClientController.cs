@@ -95,39 +95,17 @@ public class GameClientController : NetworkBehaviour {
     {
 
         // apply damage from all laser weapons
-        LaunchMissilesForPlayer(_game.Player);
-        LaunchMissilesForPlayer(_game.Opponent);
 
         // apply damage from all laser weapons
-        ProcessLaserWeaponsForPlayer(_game.Player);
-        ProcessLaserWeaponsForPlayer(_game.Opponent);
+        ///ProcessLaserWeaponsForPlayer(_game.Player);
+        ///ProcessLaserWeaponsForPlayer(_game.Opponent);
 
         // now that all damage has been applied, remove any dead ships
         DestroyDeadCardsForPlayer(_game.Player);
         DestroyDeadCardsForPlayer(_game.Opponent);
     }
 
-    private void LaunchMissilesForPlayer(Player player)
-    {
-        // run through each weapon for each of the players ships and if its a missile, fire it
-        //foreach (Ship ship in player.Ships)
-        //{
-        //    foreach (Weapon weapon in ship.Weapons)
-        //    {
-        //        if (weapon.WeaponType == WeaponType.MISSILE // is a missile
-        //            && weapon.Target != null )             // has a target                    
-        //        {
-        //            Missile missile = new Missile(weapon.Damage);
-        //            missile.SetTarget(weapon.Target);   
-        //            weapon.ClearTarget();
-
-        //            // TODO - spawn in view
-        //            GameViewController.SpawnMissile(missile, player==_game.Player);
-        //        }
-        //    }
-        //}
-    }
-
+  
     private void DestroyDeadCardsForPlayer(Player player)
     {
         //foreach (Ship ship in player.Ships)
@@ -290,95 +268,7 @@ public class GameClientController : NetworkBehaviour {
 
     }
 
-    private void ProcessOpponentOperationAction(string operationId, Card card)
-    {
-        //// instantiate
-        //Operation operation = (Operation)CardFactory.CreateCard(cardCodename, operationId);
-
-        //_game.Opponent.ChangeClicks(-1);
-        //_game.Opponent.ChangeCredits(-operation.BaseCost);
-        //_game.Opponent.Hand.RemoveAt(0);
-        //if (operation.OnPlay != null)
-        //{
-        //    operation.OnPlay(_game, _game.Opponent);
-        //}
-
-        //if (operation.OperationType == OperationType.ONESHOT)
-        //{
-        //    _game.Opponent.Discard.Add(operation);
-        //}
-        //else
-        //{
-        //    _game.Opponent.OngoingOperations.Add(operation);
-        //    GameViewController.AddOperation(operation, false);
-        //}
-
-        // log 
-       /// GameViewController.AddGameLogMessage(string.Format("<b>{0}</b> plays {1}", _game.Opponent.Name, operation.CardName));
-    }
-
-    private void ProcessOpponentShipyardAction(string shipyardId, Card card)
-    {
-        //// card needs to be instantiated
-        //Shipyard shipyard = (Shipyard)CardFactory.CreateCard(cardCodename, shipyardId);
-        //GameViewController.AddShipyard(shipyard, false);
-
-        //// spend the resources
-        //_game.Opponent.ChangeClicks(-1);
-        //_game.Opponent.ChangeCredits(-shipyard.BaseCost);
-        //_game.Opponent.Hand.RemoveAt(0);
-        //_game.Opponent.Shipyards.Add(shipyard);
-
-        //// log 
-        //GameViewController.AddGameLogMessage(string.Format("<b>{0}</b> plays {1}", _game.Opponent.Name, shipyard.CardName));
-    }
-
-    private void ProcessOpponentAdvanceConstructionAction(string shipId, string shipyardId)
-    {
-        //Shipyard shipyard = _game.Opponent.Shipyards.Find(x => x.CardId == shipyardId);
-        //Ship ship = shipyard.HostedShip;
-        //ship.AdvanceConstruction(1);
-        //_game.Opponent.ChangeClicks(-1);
-
-        //// update gui panel
-        //GameViewController.UpdateConstructionRemaining(ship);
-
-        //GameViewController.AddGameLogMessage(string.Format("<b>{0}</b> advances construction of {1}", _game.Opponent.Name, ship.CardName));
-    }
-
-    private void ProcessOpponentDeployShipAction(string shipId, string shipyardId)
-    {
-        //// move the ship to the deployed area
-        //Shipyard shipyard = _game.Opponent.Shipyards.Find(x => x.CardId == shipyardId);
-        //Ship ship = shipyard.HostedShip;
-        //_game.Opponent.Ships.Add(ship);
-        //shipyard.ClearHostedCard();
-
-        //GameViewController.DeployShip(ship, false);       
-        
-        //GameViewController.AddGameLogMessage(string.Format("<b>{0}</b> deploys {1}", _game.Opponent.Name, ship.CardName));
-    }
-
-    private void ProcessOpponentHostShipAction(string shipId, string shipyardId, Card card)
-    {
-        //// ship will be an unknown card at this point so needs to be instantiated
-        //Ship ship = (Ship)CardFactory.CreateCard(cardCodename, shipId);
-        //Shipyard shipyard = _game.Opponent.Shipyards.Find(x => x.CardId == shipyardId);
-        //shipyard.HostCard(ship);
-        //ship.StartConstruction();
-        //if (ship.OnPlay != null)
-        //{
-        //    ship.OnPlay(_game, _game.Opponent);
-        //}
-        //_game.Opponent.ChangeClicks(-1);
-        //_game.Opponent.ChangeCredits(-ship.BaseCost);
-        //_game.Opponent.Hand.RemoveAt(0);        
-
-        //GameViewController.HostShip(ship, shipyard, false);                
-        
-        //GameViewController.AddGameLogMessage(string.Format("<b>{0}</b> hosts {1} on {2}", _game.Opponent.Name, ship.CardName, shipyard.CardName));
-    }
-
+  
     private void ProcessOpponentClickForCreditAction()
     {
         _game.Opponent.ChangeClicks(-1);
