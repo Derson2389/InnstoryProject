@@ -70,6 +70,18 @@ public class Game {
         return _hostReady && _challengerReady;
     }
 
+    public void MissionToPumpingCard()
+    {
+        Player.MissionToPumpingCard();
+        Opponent.MissionToPumpingCard();
+       
+        ChangeGamePhase(GamePhase.MissionCardCaculte);
+
+
+
+    }
+
+
     public void Setup()
     {
         // setup the deck of each player

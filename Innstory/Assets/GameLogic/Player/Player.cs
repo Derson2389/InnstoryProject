@@ -57,7 +57,13 @@ public class Player {
         {
             Credits = 0;
         }
-    } 
+    }
+
+    public void MissionToPumpingCard()
+    {
+
+    }
+
 
     public void Setup()
     {

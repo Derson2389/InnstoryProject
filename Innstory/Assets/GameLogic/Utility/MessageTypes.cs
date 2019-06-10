@@ -44,4 +44,6 @@ public class MessageTypes
     public class GameLogMessage : MessageBase       { public string message; }
     public class DeckFirstMessage : MessageBase     { public string deckDataFragment; }
     public class DeckFragmentMessage : MessageBase  { public string deckDataFragment; }
+    public class DeckEnvCardMessage : MessageBase   { public string deckDataEnvCard;  }
+    public class MissionCardReadyMessage : MessageBase { }
 }

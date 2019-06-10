@@ -40,6 +40,7 @@ public class GameClientController : NetworkBehaviour {
         _client.RegisterHandler((short)MessageTypes.MessageType.DRAWN_CARD, OnDrawnCardMessage);
         _client.RegisterHandler((short)MessageTypes.MessageType.GAME_LOG, OnGameLogMessage);
         _client.RegisterHandler((short)MessageTypes.MessageType.ACTIONS, OnActionsMessage);
+        _client.RegisterHandler((short)MessageTypes.MessageType.S2C_MISSION_SETTLEMENT, OnMissionSettleMentMessage);
     }
 
     private void OnDeckFirstMessage(NetworkMessage netMsg)
@@ -57,6 +58,16 @@ public class GameClientController : NetworkBehaviour {
 
         // append data
         LobbyController.Opponent.DeckData += msg.deckDataFragment;
+    }
+
+    private void OnMissionSettleMentMessage(NetworkMessage netMsg)
+    {
+        var msg = netMsg.ReadMessage<MessageTypes.DeckEnvCardMessage>();
+
+        msg.deckDataEnvCard = ""/*deckData.Substring(0, Math.Min(deckData.Length, 1024))*/;
+        GameViewController.HideDeckSelectDialog();
+
+        ///NetworkServer.SendToClient(_game.Player.ConnectionId, (short)MessageTypes.MessageType.S2C_MISSION_SETTLEMENT, msg);
     }
 
     private void OnActionsMessage(NetworkMessage netMsg)
@@ -633,6 +644,11 @@ public class GameClientController : NetworkBehaviour {
         _game.Player.Hand.Remove(missionCard);
 
         GameViewController.hostMissionCard(missionCard, true);
+
+
+        Debug.Log("Sending Missionc ready message");
+        MessageTypes.MissionCardReadyMessage msg = new MessageTypes.MissionCardReadyMessage();
+        NetworkManager.singleton.client.Send((short)MessageTypes.MessageType.C2S_MISSION_CARD_READY, msg);
 
         return true;
     }
