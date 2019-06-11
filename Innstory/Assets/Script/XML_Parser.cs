@@ -101,7 +101,7 @@ namespace test
                         data.Health = 0;
                         list.Add(data);
 #if UNITY_EDITOR
-                        Debug.Log("Card Loaded - 주문 : " + data.Name);
+                        Debug.Log("Card Loaded - 订单 : " + data.Name);
 #endif
                     }
                 }

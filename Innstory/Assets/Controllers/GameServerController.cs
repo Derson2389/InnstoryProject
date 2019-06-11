@@ -521,7 +521,8 @@ public class GameServerController : NetworkBehaviour {
         if (game.BothMissionReady())
         {
             ServerLog("双方选定了此轮的任务卡，开始结算抽卡", game);
-            game.MissionToPumpingCard();
+            game.MissionToPumpingCard(game, game.Player, game.Opponent);
+
             SendS2C_MISSION_SETTLEMENT(game, game.Player, game.Opponent);
             SendS2C_MISSION_SETTLEMENT(game, game.Opponent, game.Player);
         }
@@ -596,7 +597,7 @@ public class GameServerController : NetworkBehaviour {
     private void SendS2C_MISSION_SETTLEMENT(Game game, Player player, Player opponent)
     {
         Debug.Log(string.Format("mission Card of {0} to {1}", opponent.Name, player.Name));
-        string deckData = opponent.Deck.ToString(true);
+        string deckData = opponent.Deck.ToString(false);
         MessageTypes.DeckEnvCardMessage msg = new MessageTypes.DeckEnvCardMessage();
         msg.deckDataEnvCard = deckData.Substring(0, Math.Min(deckData.Length, 1024));
         NetworkServer.SendToClient(player.ConnectionId, (short)MessageTypes.MessageType.S2C_MISSION_SETTLEMENT, msg);

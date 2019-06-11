@@ -9,6 +9,8 @@ public class SkillCard : Card
 {
     public string cardEffect;    //		效果
     public string activeEffect;    //		激活效果
+    //卡牌数量
+    public int OriginalNumb { get; set; }
 
     public override void Init<T>(T t)
     {
@@ -21,5 +23,6 @@ public class SkillCard : Card
         this.activeEffect = cfg.activeEffect;
         this.descInfo = cfg.description;
         this.prefabPath = cfg.prefabPath;
+        this.OriginalNumb = cfg.orginalNum;
     }
 }

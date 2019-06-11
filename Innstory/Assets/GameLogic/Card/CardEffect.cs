@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class CardEffect : MonoBehaviour {
 
-    public UnityAction endAction;
+    public UnityAction endAction; 
 
     public virtual void StartAction() {
         StartCoroutine(Action());

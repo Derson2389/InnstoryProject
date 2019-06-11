@@ -39,6 +39,57 @@ public class CardManager : Singleton<CardManager>
 
     }
 
+    public List<Card> GetEnvCardsType2Pool(CardType _carType)
+    {
+        List<Card> envList = new List<Card>();
+        switch (_carType)
+        {                
+            case CardType.CounterCard:
+                {
+               
+                    for (int i = 0; i< allCounterCards.Count; i++)
+                    {
+                        var cd = allCounterCards[i];
+                        for (int a = 0; a < cd.OriginalNumb; a++)
+                        {
+                            envList.Add(cd);
+                        }
+                    }
+                    return envList;
+                }
+
+            case CardType.ItemCard:
+                {
+
+                    for (int i = 0; i < allItemCards.Count; i++)
+                    {
+                        var cd = allItemCards[i];
+                        for (int a = 0; a < cd.OriginalNumb; a++)
+                        {
+                            envList.Add(cd);
+                        }
+                    }
+                    return envList;
+                }
+            case CardType.SkillCard:
+                {
+                    for (int i = 0; i < allSkillCards.Count; i++)
+                    {
+                        var cd = allSkillCards[i];
+                        for (int a = 0; a < cd.OriginalNumb; a++)
+                        {
+                            envList.Add(cd);
+                        }
+                    }
+                    return envList;
+                }
+
+            default:
+                throw new Exception("Invalid card type or card type not found for " + _carType);
+        }
+
+    }
+
     public Card GetCardByType(CardType _carType, int cardID)
     {
         switch (_carType)

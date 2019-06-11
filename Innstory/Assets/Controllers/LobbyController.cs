@@ -316,6 +316,7 @@ public class LobbyController : NetworkBehaviour {
             // create a game object
             _gameNumber++;
             Game game = new Game(_gameNumber, player);
+            game.InitEnvironCardPool();
             _games[_gameNumber] = game;
             _gameConnections[connectionId] = _gameNumber;
 

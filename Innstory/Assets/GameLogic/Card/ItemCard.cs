@@ -14,6 +14,9 @@ public class ItemCard : Card
     //耐久力
     public int Durability { get; set; }
 
+    //卡牌数量
+    public int OriginalNumb { get; set; }
+
     public override void Init<T>(T t)
     {
         ItemCardsCfg cfg = t as ItemCardsCfg;
@@ -26,6 +29,6 @@ public class ItemCard : Card
         this.cardEffect = cfg.cardEffect;
         this.activeEffect = cfg.activeEffect;
         this.prefabPath = cfg.prefabPath;
-
+        this.OriginalNumb = cfg.orginalNum;
     }
 }

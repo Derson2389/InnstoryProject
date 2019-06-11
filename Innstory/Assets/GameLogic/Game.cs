@@ -12,6 +12,7 @@ public class Game {
     public int GameTurn { get; private set; }
     public string HostActionData { get; private set; }
     public string ChallengerActionData { get; private set; }
+    public List<Card> EnvironCardPool = new List<Card>();
 
     private bool _waitingForOpponent; // this replaces GamePhase.WAITING_FOR_OPPONENT, we instead want to keep the correct game phase in GameState
 
@@ -26,6 +27,38 @@ public class Game {
         GameNumber = gameNumber;
         Player = player;
         GamePhase = GamePhase.AWAITING_CHALLENGER;
+        
+    }
+
+    public List<Card> DrawCardsFromPoolviaNumber(CardType type, int number)
+    {
+        List<Card> _cards = new List<Card>();
+        var typeCards = EnvironCardPool.FindAll(c => c.cardType == type);
+        for (int i = 0; i< number; i++)
+        {
+            Card c = typeCards[0];
+            EnvironCardPool.Remove(c);
+            typeCards.RemoveAt(0);
+            _cards.Add(c);
+        }
+        return _cards;
+    }
+
+
+    public void InitEnvironCardPool()
+    {
+        EnvironCardPool.Clear();
+        var cardList = CardManager.instance.GetEnvCardsType2Pool(CardType.CounterCard);//诡计卡
+        if(cardList!= null)
+            EnvironCardPool.AddRange(cardList);
+        cardList = CardManager.instance.GetEnvCardsType2Pool(CardType.ItemCard);       //道具卡
+        if (cardList != null)
+            EnvironCardPool.AddRange(cardList);
+        cardList = CardManager.instance.GetEnvCardsType2Pool(CardType.SkillCard);      //技能卡
+        if (cardList != null)
+            EnvironCardPool.AddRange(cardList);
+        EnvironCardPool.Shuffle();
+
     }
 
     public bool AddOpponent(Player opponent)
@@ -70,15 +103,12 @@ public class Game {
         return _hostReady && _challengerReady;
     }
 
-    public void MissionToPumpingCard()
+    public void MissionToPumpingCard(Game game, Player player, Player oppoent)
     {
-        Player.MissionToPumpingCard();
-        Opponent.MissionToPumpingCard();
-       
+        player.MissionToPumpingCard(game);
+        oppoent.MissionToPumpingCard(game);
+
         ChangeGamePhase(GamePhase.MissionCardCaculte);
-
-
-
     }
 
 

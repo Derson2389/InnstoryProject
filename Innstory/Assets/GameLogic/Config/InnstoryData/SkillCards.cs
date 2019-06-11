@@ -14,6 +14,7 @@ public class SkillCardsCfg
     public string name;    //		卡牌名字
     public string cardEffect;    //		效果
     public string activeEffect;    //		激活效果
+    public int orginalNum;    //		卡牌数量
     public string description;    //		说明
     public string prefabPath;    //		预制体
 
@@ -23,6 +24,7 @@ public class SkillCardsCfg
         name = packet.PackReadString();
         cardEffect = packet.PackReadString();
         activeEffect = packet.PackReadString();
+        orginalNum = packet.PackReadInt32();
         description = packet.PackReadString();
         prefabPath = packet.PackReadString();
     }

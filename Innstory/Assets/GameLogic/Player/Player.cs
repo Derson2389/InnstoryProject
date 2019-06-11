@@ -59,8 +59,13 @@ public class Player {
         }
     }
 
-    public void MissionToPumpingCard()
+    public void MissionToPumpingCard(Game game)
     {
+        //抽装备卡
+
+        //抽诡计卡
+
+        //抽技能卡
 
     }
 
@@ -98,5 +103,12 @@ public class Player {
         {
             Hand.Add(Deck.Draw());
         }
+    }
+
+    public void DrawCardsFormPool()
+    {
+        Hand.Clear();
+        Hand.Add(Deck.Draw());        
+
     }
 }

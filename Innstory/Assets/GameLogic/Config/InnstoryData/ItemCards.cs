@@ -15,6 +15,7 @@ public class ItemCardsCfg
     public string cardEffect;    //		效果
     public string activeEffect;    //		激活效果
     public int Durability;    //		耐久
+    public int orginalNum;    //		卡牌数量
     public string description;    //		卡牌说明
     public string prefabPath;    //		预制体
 
@@ -25,6 +26,7 @@ public class ItemCardsCfg
         cardEffect = packet.PackReadString();
         activeEffect = packet.PackReadString();
         Durability = packet.PackReadInt32();
+        orginalNum = packet.PackReadInt32();
         description = packet.PackReadString();
         prefabPath = packet.PackReadString();
     }

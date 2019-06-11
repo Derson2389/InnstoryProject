@@ -66,6 +66,16 @@ public class GameClientController : NetworkBehaviour {
 
         msg.deckDataEnvCard = ""/*deckData.Substring(0, Math.Min(deckData.Length, 1024))*/;
         GameViewController.HideDeckSelectDialog();
+     
+        ////// add to local version of game state 
+        //CardType cardTypeName = (CardType)Enum.Parse(typeof(CardType), cardType);
+        //Card card = (Card)CardManager.instance.GetCardByType(cardTypeName, int.Parse(cardId));
+        //_game.Player.Hand.Add(card);
+
+        //GameViewController.AddCardToHand(card, true);
+
+        // update player state gui
+        ///UpdatePlayerStateGUI();
 
         ///NetworkServer.SendToClient(_game.Player.ConnectionId, (short)MessageTypes.MessageType.S2C_MISSION_SETTLEMENT, msg);
     }
@@ -179,7 +189,7 @@ public class GameClientController : NetworkBehaviour {
 
             // innefficient as sometimes unnecessary, but simple way to ensure this is up to date
             UpdateOpponentStateGUI();
-            UpdatePlayerStateGUI();
+            ///UpdatePlayerStateGUI();
         }
     }
 
@@ -195,38 +205,6 @@ public class GameClientController : NetworkBehaviour {
                 break;
             case ActionType.CLICK_FOR_CREDIT:
                 ProcessOpponentClickForCreditAction();
-                break;
-            case ActionType.HOST_SHIP:
-                //string shipId = actionData[1];
-                //string shipyardId = actionData[2];
-                //CardCodename cardCodename = (CardCodename)Enum.Parse(typeof(CardCodename), actionData[3]);
-                //ProcessOpponentHostShipAction(shipId, shipyardId, cardCodename);
-                break;
-            case ActionType.DEPLOY_SHIP:
-                //shipId = actionData[1];
-                //shipyardId = actionData[2];
-                //ProcessOpponentDeployShipAction(shipId, shipyardId);
-                break;
-            case ActionType.ADVANCE_CONSTRUCTION:
-                //shipId = actionData[1];
-                //shipyardId = actionData[2];
-                //ProcessOpponentAdvanceConstructionAction(shipId, shipyardId);
-                break;
-            case ActionType.SHIPYARD:
-                //shipyardId = actionData[1];
-                //cardCodename = (CardCodename)Enum.Parse(typeof(CardCodename), actionData[2]);
-                //ProcessOpponentShipyardAction(shipyardId, cardCodename);
-                break;
-            case ActionType.OPERATION:
-                //string operationId = actionData[1];
-                //cardCodename = (CardCodename)Enum.Parse(typeof(CardCodename), actionData[2]);
-                //ProcessOpponentOperationAction(operationId, cardCodename);
-                break;
-            case ActionType.WEAPON_TARGET:
-                //shipId = actionData[1];
-                //int weaponIndex = int.Parse(actionData[2]);
-                //string targetId = actionData[3];
-                //ProcessOpponentWeaponTargetAction(shipId, weaponIndex, targetId);
                 break;
             default:
                 Debug.LogError("Unknown action type [" + actionType + "]");
@@ -325,7 +303,7 @@ public class GameClientController : NetworkBehaviour {
         GameViewController.SetPlayerName(_game.Player.Name);
         GameViewController.SetOpponentName(_game.Opponent.Name);
 
-        UpdatePlayerStateGUI();
+        ///UpdatePlayerStateGUI();
         UpdateOpponentStateGUI();
 
         GameViewController.AddCharacter(_game.Player.Deck.Faction.Character, true);
@@ -365,7 +343,7 @@ public class GameClientController : NetworkBehaviour {
         GameViewController.AddCardToHand(card, true);
 
         // update player state gui
-        UpdatePlayerStateGUI();
+        ///UpdatePlayerStateGUI();
     }
 
     private void UpdatePlayerStateGUI()
@@ -403,9 +381,6 @@ public class GameClientController : NetworkBehaviour {
 
         GameViewController.SetDeckDialogText("等待对方准备。。。");
         GameViewController.HideDeckSelectDialog();
-        // disable the button
-        //var createGameButton = (Button)GameObject.Find("ReadyButton").GetComponent(typeof(Button));
-        //createGameButton.interactable = false;
 
         //create mission card
         for (int i = 0; i < LobbyController.LocalPlayer.Deck.Faction.MissionCards.Count; i++)
@@ -421,7 +396,7 @@ public class GameClientController : NetworkBehaviour {
         _game.Player.ChangeClicks(change);
 
         EnableDisableControls();
-        UpdatePlayerStateGUI();
+        ///UpdatePlayerStateGUI();
     }
 
     public void ClickToDraw() // not that we don't draw the cards until the end of the phase
